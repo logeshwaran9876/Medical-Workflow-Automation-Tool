@@ -49,6 +49,7 @@ export default function ReceptionistDashboard() {
       icon: <FiDollarSign />,
       color: "amber",
     },
+    
   ];
 
   return (

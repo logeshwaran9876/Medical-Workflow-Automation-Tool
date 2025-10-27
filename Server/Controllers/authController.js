@@ -36,7 +36,7 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body; 
 
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid credentials: User not found." });

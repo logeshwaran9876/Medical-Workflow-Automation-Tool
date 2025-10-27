@@ -18,8 +18,7 @@ import ReceptionistDashboard from './Components/Receptionist/Dashboard'
 import ReceptionistPatient from "./Components/Receptionist/Pateint";
 import BedManagement from "./Components/Receptionist/BedManagement"
 import AppointmentModule from "./Components/Receptionist/AppointmentModule"
-
-
+import QRCodeScannerAndDisplay from "./Components/Receptionist/QRCodeScannerAndDisplay"
 // Import Billing Components
 import BillingDashboard from './Components/Receptionist/BillingDashboard'
 import BillingDetail from './Components/Receptionist/BillingDetail'
@@ -39,15 +38,6 @@ import { Navigate } from 'react-router-dom';
 import { ThemeProvider } from './Components/Admin/context/ThemeContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
-
-
-
-
-
-
-
-
 
 
 
@@ -93,8 +83,10 @@ export default function App() {
             <Route path="billing/:id" element={<BillingDetail />} />
             <Route path="billing/:id/edit" element={<BillingForm />} />
             <Route path="reports" element={<ReportGenBill />} />
+            <Route path="scanpatient" element={<QRCodeScannerAndDisplay />} />
+
           </Route>
-            </Route>
+          </Route>
 
             {/* Catch-all route */}
             <Route path="*" element={<Navigate to="/login" replace />} />

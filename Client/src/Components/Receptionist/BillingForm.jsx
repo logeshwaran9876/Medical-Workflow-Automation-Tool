@@ -132,7 +132,7 @@ const BillingForm = () => {
 
     if (formData.items.length === 0 && formData.status !== "draft") {
       toast.error("Please add at least one item for generated bills");
-      return;
+      return;u
     }
 
     try {

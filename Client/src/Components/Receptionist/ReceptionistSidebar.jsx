@@ -8,7 +8,7 @@ import {
   FaUserMd, FaFilePrescription 
 } from "react-icons/fa";
 import { motion } from "framer-motion";
-
+import { BsUpcScan } from 'react-icons/bs';
 const navItems = [
   { icon: <FiHome />, label: "Dashboard", path: "/receptionist" },
   { icon: <FiUser />, label: "Patients", path: "/receptionist/patients" },
@@ -16,6 +16,7 @@ const navItems = [
   { icon: <FaBed />, label: "Bed Management", path: "/receptionist/beds" },
   { icon: <FiDollarSign />, label: "Billing", path: "/receptionist/billing" },
   { icon: <FiPieChart />, label: "Reports", path: "/receptionist/reports" },
+   { icon: <BsUpcScan />, label: "QRScan", path: "/receptionist/scanpatient" },
 ];
 
 export default function ReceptionistSidebar({ closeSidebar }) {

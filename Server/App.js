@@ -32,8 +32,6 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 
 
-
-
 app.use("/api/patients", patientRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/prescriptions", Prescriptionrouter);
@@ -65,7 +63,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true
 })
 .then(() => {
-  console.log("✅ MongoDB connected");
+  console.log("✅ Mong oDB connected");
   // 🟢 Start server only after DB is connected
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {

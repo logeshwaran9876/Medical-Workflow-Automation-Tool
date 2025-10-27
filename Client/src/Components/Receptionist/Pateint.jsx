@@ -249,14 +249,7 @@ export default function ReceptionistPatient() {
             <QRCodeSVG
               id="patient-qr-code"
               value={JSON.stringify({
-                name: currentQRPatient?.name,
-                age: currentQRPatient?.age,
-                gender: currentQRPatient?.gender,
-                contact: currentQRPatient?.contact,
-                condition: currentQRPatient?.condition,
-                bloodType: currentQRPatient?.bloodType,
-                status: currentQRPatient?.status,
-                timestamp: new Date().toISOString()
+                id: currentQRPatient?._id
               })}
               size={256}
               level="H"
