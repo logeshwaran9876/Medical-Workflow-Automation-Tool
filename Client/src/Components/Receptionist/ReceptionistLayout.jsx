@@ -15,12 +15,12 @@ export default function ReceptionistLayout() {
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Desktop Sidebar (always visible on lg screens) */}
+      {}
       <div className="hidden lg:flex">
         <ReceptionistSidebar />
       </div>
 
-      {/* Mobile sidebar overlay with animation */}
+      {}
       <AnimatePresence>
         {sidebarOpen && (
           <>
@@ -45,7 +45,7 @@ export default function ReceptionistLayout() {
         )}
       </AnimatePresence>
 
-      {/* Main content area */}
+      {}
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -108,9 +108,7 @@ const ReportGen = () => {
     
     const doc = new jsPDF();
     const title = `${reportType.charAt(0).toUpperCase() + reportType.slice(1)} Report`;
-    const dateRange = `From ${moment(startDate).format('MMM D, YYYY')} to ${moment(endDate).format('MMM D, YYYY')}`;
-    
-    // Title and metadata
+    const dateRange = `From ${moment(startDate).format('MMM D, YYYY')} to ${moment(endDate).format('MMM D, YYYY')}`;
     doc.setFontSize(18);
     doc.setTextColor(40, 53, 147);
     doc.text(title, 14, 20);
@@ -121,13 +119,9 @@ const ReportGen = () => {
     
     if (statusFilter !== 'all') {
       doc.text(`Status: ${statusFilter}`, 14, 38);
-    }
-    
-    // Summary section
+    }
     doc.setFontSize(14);
-    doc.text('Summary', 14, 50);
-    
-    // Generate summary table based on report type
+    doc.text('Summary', 14, 50);
     const summaryHeaders = ['Metric', 'Value'];
     let summaryRows = [];
     
@@ -181,13 +175,9 @@ const ReportGen = () => {
         textColor: 255,
         fontStyle: 'bold'
       }
-    });
-    
-    // Detailed records section
+    });
     doc.setFontSize(14);
-    doc.text('Detailed Records', 14, doc.lastAutoTable.finalY + 15);
-    
-    // Generate detailed table based on report type
+    doc.text('Detailed Records', 14, doc.lastAutoTable.finalY + 15);
     let headers = [];
     let rows = [];
     
@@ -265,9 +255,7 @@ const ReportGen = () => {
         fillColor: [240, 240, 240]
       },
       margin: { horizontal: 5 }
-    });
-    
-    // Add footer with page numbers
+    });
     const pageCount = doc.internal.getNumberOfPages();
     for(let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
@@ -326,10 +314,10 @@ const ReportGen = () => {
         Hospital Report Generator
       </Typography>
       
-      {/* Connection status */}
+      {}
      
       
-      {/* Alerts */}
+      {}
       <Snackbar open={!!error} autoHideDuration={10000} onClose={handleCloseAlert}>
         <Alert severity="error" onClose={handleCloseAlert} sx={{ whiteSpace: 'pre-line' }}>
           {error}
@@ -342,7 +330,7 @@ const ReportGen = () => {
         </Alert>
       </Snackbar>
       
-      {/* Report Form */}
+      {}
       <Card sx={{ mb: 3 }}>
         <CardContent>
           <Grid container spacing={3}>
@@ -440,7 +428,7 @@ const ReportGen = () => {
         </CardContent>
       </Card>
 
-      {/* Report Preview */}
+      {}
       {reportData && (
         <Card sx={{ mt: 3 }}>
           <CardContent>

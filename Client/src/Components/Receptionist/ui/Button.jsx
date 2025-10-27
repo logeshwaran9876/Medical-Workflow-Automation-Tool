@@ -1,8 +1,6 @@
-// In file: /ui/Button.js
 
-import React from 'react';
 
-// Define the component
+import React from 'react';
 const Button = ({
   children,
   onClick,
@@ -40,7 +38,5 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-// Ensure this line exists to make it the default export
+};
 export default Button;

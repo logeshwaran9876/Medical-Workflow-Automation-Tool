@@ -1,4 +1,4 @@
-// QRCodeScannerAndDisplay.jsx
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import axios from 'axios';
@@ -8,9 +8,7 @@ import {
   FiUser, FiPhone, FiHeart, FiDroplet, FiCalendar, FiFileText, FiXCircle, FiInfo
 } from 'react-icons/fi';
 import { BsQrCodeScan } from 'react-icons/bs';
-import { BiQrScan } from 'react-icons/bi'; // Import BiQrScan for the 'scan' icon
-
-// Assuming these are properly exported default components
+import { BiQrScan } from 'react-icons/bi'; // Import BiQrScan for the 'scan' icon
 import Modal from "./ui/Modal";
 import Button from './ui/Button';
 import LoadingSpinner from './ui/LoadingSpinner';
@@ -48,8 +46,7 @@ export default function QRCodeScannerAndDisplay() {
   };
 
   useEffect(() => {
-    if (isScannerActive) {
-      // Ensure the element exists before initializing the scanner
+    if (isScannerActive) {
       const qrCodeReaderElement = document.getElementById("qr-code-reader");
       if (!qrCodeReaderElement) {
         console.error("QR Code Reader element not found.");
@@ -88,8 +85,7 @@ export default function QRCodeScannerAndDisplay() {
         }
       };
 
-      const onScanError = (errorMessage) => {
-        // console.warn(errorMessage); // Log errors only for debugging
+      const onScanError = (errorMessage) => {
       };
 
       qrCodeScannerRef.current.render(onScanSuccess, onScanError);
@@ -108,8 +104,7 @@ export default function QRCodeScannerAndDisplay() {
     try {
       setIsLoading(true);
       const { data } = await axios.get(`${API_BASE_URL}/patients/${patientId}/history`);
-      console.log('Patient History:', data);
-      // In a real app, you would open a dedicated modal or navigate to a history view
+      console.log('Patient History:', data);
       toast.info('Patient history fetched (check console for now). You can implement a detailed view here!');
     } catch (error) {
       toast.error('Failed to fetch patient history.');
@@ -122,7 +117,7 @@ export default function QRCodeScannerAndDisplay() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-100 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-teal-200">
-        {/* Header Section */}
+        {}
         <div className="bg-gradient-to-r from-teal-500 to-blue-500 p-6 sm:p-8 flex items-center justify-between">
           <h1 className="text-3xl font-extrabold text-white flex items-center gap-3">
             <BiQrScan className="text-white text-4xl" /> Patient QR Scan
@@ -156,7 +151,7 @@ export default function QRCodeScannerAndDisplay() {
           </AnimatePresence>
         </div>
 
-        {/* Main Content Area */}
+        {}
         <div className="p-6 sm:p-8 space-y-8">
           <AnimatePresence mode="wait">
             {isScannerActive && (
@@ -205,7 +200,7 @@ export default function QRCodeScannerAndDisplay() {
                 transition={{ duration: 0.4 }}
                 className="bg-teal-50 rounded-2xl p-6 sm:p-8 shadow-2xl border-4 border-teal-400 relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-teal-300 opacity-10 blur-xl"></div> {/* Subtle background effect */}
+                <div className="absolute inset-0 bg-teal-300 opacity-10 blur-xl"></div> {}
                 <h2 className="text-3xl font-bold text-teal-800 mb-6 flex items-center gap-3 relative z-10">
                   <FiUser className="text-teal-600 text-4xl" /> Patient Profile
                 </h2>
@@ -245,9 +240,7 @@ export default function QRCodeScannerAndDisplay() {
       {isLoading && <LoadingSpinner fullPage />}
     </div>
   );
-}
-
-// Reusable component for displaying a single detail item
+}
 const DetailItem = ({ icon, label, value }) => (
   <motion.p
     initial={{ opacity: 0, x: -20 }}

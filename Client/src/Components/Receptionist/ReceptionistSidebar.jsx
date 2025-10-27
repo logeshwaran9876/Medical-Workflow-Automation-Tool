@@ -26,7 +26,7 @@ export default function ReceptionistSidebar({ closeSidebar }) {
       animate={{ x: 0 }}
       className="w-72 bg-gradient-to-b from-indigo-800 to-purple-900 border-r border-indigo-700 flex flex-col shadow-xl h-full"
     >
-      {/* Logo */}
+      {}
       <div className="p-5 border-b border-indigo-700">
         <div className="flex items-center justify-center">
           <div className="bg-white p-2 rounded-lg shadow-lg">
@@ -36,7 +36,7 @@ export default function ReceptionistSidebar({ closeSidebar }) {
         </div>
       </div>
 
-      {/* Navigation */}
+      {}
       <nav className="flex-1 overflow-y-auto p-4">
         <ul className="space-y-2">
           {navItems.map((item, index) => (
@@ -66,7 +66,7 @@ export default function ReceptionistSidebar({ closeSidebar }) {
         </ul>
       </nav>
 
-      {/* Logout Button */}
+      {}
       <div className="p-4 border-t border-indigo-700">
         <motion.button
           whileHover={{ scale: 1.02 }}

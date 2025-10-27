@@ -17,8 +17,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Safely parse user data from localStorage
+  useEffect(() => {
     try {
       const userData = localStorage.getItem('user');
       if (userData) {
@@ -50,8 +49,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
     navigate('/receptionist/appointments');
   };
 
-  const handleLogout = () => {
-    // Clear all relevant user data from storage
+  const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     navigate('/login');
@@ -65,7 +63,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
     >
       <div className="flex items-center justify-between h-16 px-4 sm:px-6">
         <div className="flex items-center space-x-4">
-          {/* Mobile menu button */}
+          {}
           <button 
             onClick={onMenuClick}
             className="lg:hidden p-2 rounded-md text-white hover:bg-white/10 focus:outline-none"
@@ -74,7 +72,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
             <FiMenu className="h-6 w-6" />
           </button>
           
-          {/* Logo */}
+          {}
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="flex items-center cursor-pointer"
@@ -88,7 +86,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
             </span>
           </motion.div>
           
-          {/* Search bar */}
+          {}
           <motion.div 
             whileHover={{ scale: 1.01 }}
             className="hidden md:flex items-center ml-6 bg-white/20 rounded-full px-4 py-1 backdrop-blur-sm"
@@ -104,7 +102,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
         </div>
         
         <div className="flex items-center space-x-4 sm:space-x-6">
-          {/* Quick actions */}
+          {}
           <div className="hidden sm:flex space-x-3">
             <motion.button 
               whileHover={{ scale: 1.05 }}
@@ -129,7 +127,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
             </motion.button>
           </div>
           
-          {/* Notifications */}
+          {}
           <motion.button 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
@@ -142,7 +140,7 @@ export default function ReceptionistNavbar({ onMenuClick }) {
             </div>
           </motion.button>
           
-          {/* Profile dropdown */}
+          {}
           <div className="relative" ref={dropdownRef}>
             <motion.button 
               whileHover={{ scale: 1.05 }}

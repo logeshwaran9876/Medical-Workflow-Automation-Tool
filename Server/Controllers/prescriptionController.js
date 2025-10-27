@@ -1,7 +1,5 @@
-// 📄 controllers/prescriptionController.js
-import { Prescription, Appointment, User, Patient } from "../models/Models.js";
 
-// Helper function for consistent population
+import { Prescription, Appointment, User, Patient } from "../models/Models.js";
 const populatePrescription = (query) => {
   return query.populate({
     path: "appointment",
@@ -10,9 +8,7 @@ const populatePrescription = (query) => {
       { path: "doctor", model: "User", select: "name specialization" } // Select name and specialization for doctor
     ]
   });
-};
-
-// Create prescription for an appointment
+};
 export const createPrescription = async (req, res) => {
   try {
     const { meds, notes } = req.body;
@@ -45,9 +41,7 @@ export const createPrescription = async (req, res) => {
     console.error("Error creating prescription:", error.message);
     res.status(500).json({ message: "Failed to create prescription", error: error.message });
   }
-};
-
-// Get a single prescription by appointment ID
+};
 export const getPrescriptionByAppointmentId = async (req, res) => {
   const { appointmentId } = req.params;
 
@@ -65,9 +59,7 @@ export const getPrescriptionByAppointmentId = async (req, res) => {
     console.error("Error fetching prescription by appointment ID:", err.message);
     res.status(500).json({ message: "Server error", error: err.message });
   }
-};
-
-// Get all prescriptions
+};
 export const getAllPrescriptions = async (req, res) => {
   try {
     const prescriptions = await populatePrescription(
@@ -79,31 +71,20 @@ export const getAllPrescriptions = async (req, res) => {
     console.error("Error fetching all prescriptions:", err.message);
     res.status(500).json({ message: "Server error", error: err.message });
   }
-};
-
-// NEW CONTROLLER: Get all prescriptions for a specific doctor
+};
 export const getPrescriptionsByDoctorId = async (req, res) => {
   try {
-    const { doctorId } = req.params;
-
-    // Find prescriptions where the associated appointment's doctor matches doctorId
+    const { doctorId } = req.params;
     const prescriptions = await Prescription.find({})
       .populate({
-        path: 'appointment',
-        // Important: Filter directly within the populate if possible,
-        // or filter results afterwards if Mongoose doesn't allow direct match on nested populate.
-        // Mongoose will perform a lookup, then populate. The match ensures only
-        // appointments linked to this doctor are considered.
+        path: 'appointment',
         match: { doctor: doctorId }, // Match appointments belonging to this doctor
         populate: [
           { path: 'patient', model: 'Patient', select: 'name' },
           { path: 'doctor', model: 'User', select: 'name specialization' }
         ]
       })
-      .exec(); // Execute the query
-
-    // After population, filter out any prescriptions whose 'appointment' field became null
-    // because their associated appointment didn't match the doctorId filter.
+      .exec(); // Execute the query
     const filteredPrescriptions = prescriptions.filter(p => p.appointment !== null);
 
     if (!filteredPrescriptions.length) {
@@ -115,18 +96,12 @@ export const getPrescriptionsByDoctorId = async (req, res) => {
     console.error("Error fetching prescriptions by doctor ID:", error.message);
     res.status(500).json({ message: "Failed to fetch prescriptions for doctor", error: error.message });
   }
-};
-
-
-// Update a prescription by its ID
+};
 export const updatePrescription = async (req, res) => {
   const { id } = req.params;
   const { meds, notes } = req.body; // Removed 'appointment' from destructuring, generally not updated here
 
-  try {
-    // Note: We typically don't allow changing the appointment a prescription is linked to via update.
-    // If you need this, handle with care (e.g., delete and re-create).
-    // So, we update only meds and notes.
+  try {
     const updatedPrescription = await populatePrescription(
       Prescription.findByIdAndUpdate(
         id,
@@ -144,9 +119,7 @@ export const updatePrescription = async (req, res) => {
     console.error("Error updating prescription:", err.message);
     res.status(500).json({ message: "Failed to update prescription", error: err.message });
   }
-};
-
-// Delete a prescription by its ID
+};
 export const deletePrescription = async (req, res) => {
   const { id } = req.params;
 

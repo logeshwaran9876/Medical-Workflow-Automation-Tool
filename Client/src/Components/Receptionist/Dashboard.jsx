@@ -54,14 +54,14 @@ export default function ReceptionistDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Stats Overview */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <ReceptionistStatsCard key={index} {...stat} />
         ))}
       </div>
 
-      {/* Recent Activity Section */}
+      {}
       <div className="bg-white rounded-xl shadow-sm p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Recent Appointments
@@ -128,7 +128,7 @@ export default function ReceptionistDashboard() {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <button className="bg-white p-4 rounded-xl shadow-sm flex items-center space-x-3 hover:bg-blue-50 transition-colors">
           <div className="bg-blue-100 p-3 rounded-lg text-blue-600">

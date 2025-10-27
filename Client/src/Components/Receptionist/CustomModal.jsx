@@ -1,11 +1,8 @@
-// These UI components are included here for completeness.
-// In a real project, you would typically have these in a 'ui' directory.
+
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiX, FiSearch } from "react-icons/fi"; // FiSearch added for SearchBar
-
-// Custom Modal Component
+import { FiX, FiSearch } from "react-icons/fi"; // FiSearch added for SearchBar
 export const CustomModal = ({ isOpen, onClose, children, title, size = 'md', overlayClassName = '', className = '' }) => {
   useEffect(() => {
     if (isOpen) {
@@ -61,9 +58,7 @@ export const CustomModal = ({ isOpen, onClose, children, title, size = 'md', ove
       </AnimatePresence>
     </>
   );
-};
-
-// Custom Input Component
+};
 export const CustomInput = ({ label, name, type = 'text', value, onChange, icon, error, className = '', ...props }) => (
   <div className={`mb-4 ${className}`}>
     {label && <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
@@ -89,9 +84,7 @@ export const CustomInput = ({ label, name, type = 'text', value, onChange, icon,
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Custom Select Component
+);
 export const CustomSelect = ({ label, name, value, onChange, options, icon, error, className = '', ...props }) => (
   <div className={`mb-4 ${className}`}>
     {label && <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
@@ -125,9 +118,7 @@ export const CustomSelect = ({ label, name, value, onChange, options, icon, erro
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Custom Button Component
+);
 export const CustomButton = ({ children, variant = 'primary', loading = false, onClick, type = 'button', className = '' }) => {
   const variants = {
     primary: 'bg-teal-600 hover:bg-teal-700 text-white',
@@ -155,16 +146,12 @@ export const CustomButton = ({ children, variant = 'primary', loading = false, o
       ) : children}
     </button>
   );
-};
-
-// Custom Loading Spinner Component
+};
 export const CustomLoadingSpinner = ({ fullPage = false }) => (
   <div className={`flex items-center justify-center ${fullPage ? 'h-screen' : ''}`}>
     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-500"></div>
   </div>
-);
-
-// SearchBar Component (as seen in your previous code)
+);
 export const SearchBar = ({ value, onChange, placeholder = "Search..." }) => (
   <div className="relative flex-grow">
     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

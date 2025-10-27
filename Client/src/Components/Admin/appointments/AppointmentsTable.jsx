@@ -81,9 +81,7 @@ const AppointmentsTable = ({
       new Date(appointment.date) <= new Date(filters.dateTo);
 
     return matchesStatus && matchesDoctor && matchesPatient && matchesDateFrom && matchesDateTo;
-  });
-
-  // Get unique doctors and patients for filter dropdowns
+  });
   const uniqueDoctors = [...new Set(appointments
     .map(a => a.doctor?.name)
     .filter(name => name !== undefined && name !== null))];
@@ -94,7 +92,7 @@ const AppointmentsTable = ({
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-      {/* Filter Section */}
+      {}
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
@@ -148,7 +146,7 @@ const AppointmentsTable = ({
    
       </div>
 
-      {/* Table Section */}
+      {}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-50 dark:bg-gray-700">

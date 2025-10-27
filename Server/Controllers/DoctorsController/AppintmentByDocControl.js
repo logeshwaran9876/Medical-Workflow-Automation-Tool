@@ -14,8 +14,7 @@ export const getAppointmentsByDoctor = async (req, res) => {
 };
 
 export const createAppointment = async (req, res) => {
-  try {
-    // 1. Validate required fields
+  try {
     const requiredFields = ['patient', 'doctor', 'date', 'time'];
     const missingFields = requiredFields.filter(field => !req.body[field]);
     
@@ -23,9 +22,7 @@ export const createAppointment = async (req, res) => {
       return res.status(400).json({
         message: `Missing required fields: ${missingFields.join(', ')}`
       });
-    }
-
-    // 2. Check if patient and doctor exist
+    }
     const [patientExists, doctorExists] = await Promise.all([
       User.exists({ _id: req.body.patient, role: 'patient' }),
       User.exists({ _id: req.body.doctor, role: 'doctor' })
@@ -35,9 +32,7 @@ export const createAppointment = async (req, res) => {
       return res.status(404).json({
         message: `${!patientExists ? 'Patient' : 'Doctor'} not found`
       });
-    }
-
-    // 3. Check for appointment conflicts
+    }
     const existingAppointment = await Appointment.findOne({
       doctor: req.body.doctor,
       date: req.body.date,
@@ -49,9 +44,7 @@ export const createAppointment = async (req, res) => {
       return res.status(409).json({
         message: 'Time slot already booked'
       });
-    }
-
-    // 4. Create new appointment
+    }
     const appointmentData = {
       patient: req.body.patient,
       doctor: req.body.doctor,
@@ -62,9 +55,7 @@ export const createAppointment = async (req, res) => {
     };
 
     const newAppointment = new Appointment(appointmentData);
-    const savedAppointment = await newAppointment.save();
-
-    // 5. Populate basic info in response
+    const savedAppointment = await newAppointment.save();
     const populatedAppointment = await Appointment.findById(savedAppointment._id)
       .populate('patient', 'name email')
       .populate('doctor', 'name specialization');

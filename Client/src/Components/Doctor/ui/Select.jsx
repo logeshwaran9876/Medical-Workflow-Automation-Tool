@@ -1,5 +1,4 @@
 
-// src/components/doctor/ui/Select.jsx
 export default function Select({ name, value, onChange, options, icon }) {
   return (
     <div className="space-y-1">

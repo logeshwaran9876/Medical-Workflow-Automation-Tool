@@ -19,12 +19,11 @@ import ReceptionistPatient from "./Components/Receptionist/Pateint";
 import BedManagement from "./Components/Receptionist/BedManagement"
 import AppointmentModule from "./Components/Receptionist/AppointmentModule"
 import QRCodeScannerAndDisplay from "./Components/Receptionist/QRCodeScannerAndDisplay"
-// Import Billing Components
+
 import BillingDashboard from './Components/Receptionist/BillingDashboard'
 import BillingDetail from './Components/Receptionist/BillingDetail'
 import BillingForm from './Components/Receptionist/BillingForm'
 import ReportGenBill from "./Components/Receptionist/ReportGenBill"
-
 
 import LoginPage from "./Components/Login"
 
@@ -33,13 +32,9 @@ import ProtectedRoute from './ProtectedRoute';
 
 import { Navigate } from 'react-router-dom';
 
-
-
 import { ThemeProvider } from './Components/Admin/context/ThemeContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
-
 
 export default function App() {
   return (
@@ -47,12 +42,12 @@ export default function App() {
       <AuthProvider>
         <ThemeProvider>
           <Routes>
-            {/* Public Route */}
+            {}
             <Route path="/login" element={<LoginPage />} />
             
-            {/* Protected Routes */}
+            {}
             <Route element={<ProtectedRoute />}>
-              {/* Admin Routes */}
+              {}
               <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
           
@@ -62,7 +57,7 @@ export default function App() {
             <Route path="reports" element={<ReportGenerator />} />
           </Route>
 
-              {/* Doctor Routes */}
+              {}
               <Route path="doctor" element={<DoctorLayout />}>
             <Route index element={<DoctorDashboard />} />
             <Route path="appointments" element={<DoctorAppointments />} />
@@ -71,13 +66,13 @@ export default function App() {
             <Route path="followups" element={<DoctorFollowUps />} />
           </Route>
 
-          {/* Receptionist Routes */}
+          {}
           <Route path="receptionist" element={<ReceptionistLayout />}>
             <Route index element={<ReceptionistDashboard />} />
             <Route path="appointments" element={<AppointmentModule />} />
             <Route path="patients" element={<ReceptionistPatient />} />
             <Route path="beds" element={<BedManagement />} />
-            {/* Billing Routes */}
+            {}
             <Route path="billing" element={<BillingDashboard />} />
             <Route path="billing/new" element={<BillingForm />} />
             <Route path="billing/:id" element={<BillingDetail />} />
@@ -88,7 +83,7 @@ export default function App() {
           </Route>
           </Route>
 
-            {/* Catch-all route */}
+            {}
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
           <ToastContainer position="bottom-right" />

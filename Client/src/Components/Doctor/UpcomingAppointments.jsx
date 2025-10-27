@@ -1,4 +1,4 @@
-// src/pages/doctor/UpcomingAppointments.jsx
+
 import { useState, useEffect } from 'react';
 import { FaUser, FaCalendarAlt, FaClock, FaCheck, FaNotesMedical } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -24,8 +24,7 @@ export default function UpcomingAppointments() {
  const doctorId = "686a8f4a8008f93e7b1c3487";
   useEffect(() => {
     const fetchAppointments = async () => {
-      try {
-        // Replace with actual API call
+      try {
       
         const response = await fetch(`http://localhost:5000/api/appdoctors/doctor/${doctorId}`, {
         headers: {
@@ -46,8 +45,7 @@ export default function UpcomingAppointments() {
   }, []);
 
   const handleComplete = async (id) => {
-    try {
-      // Update appointment status
+    try {
       const response = await fetch(`/api/doctor/appointments/${id}/complete`, {
         method: 'PUT', 
         headers: {

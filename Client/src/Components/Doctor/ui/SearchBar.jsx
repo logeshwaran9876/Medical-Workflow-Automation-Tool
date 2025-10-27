@@ -1,5 +1,4 @@
 
-// src/components/doctor/ui/SearchBar.jsx
 import { FiSearch } from 'react-icons/fi';
 
 export default function SearchBar({ value, onChange, placeholder }) {

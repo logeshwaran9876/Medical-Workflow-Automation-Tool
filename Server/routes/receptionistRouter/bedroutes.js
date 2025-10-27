@@ -8,18 +8,12 @@ import {
 
 import { verifyToken, authorizeRoles } from '../../middlewares/authMiddleware.js';
 
-const router = express.Router();
-
-// 🛏️ Get all beds / Create a new bed - Only admin or receptionist
+const router = express.Router();
 router.route('/')
   .get(verifyToken, authorizeRoles('admin', 'receptionist'), getBeds)
-  .post(verifyToken, authorizeRoles('admin', 'receptionist'), createBed);
-
-// 🛏️ Assign bed to patient - receptionist only (or add doctor if needed)
+  .post(verifyToken, authorizeRoles('admin', 'receptionist'), createBed);
 router.route('/:id/assign')
-  .post(verifyToken, authorizeRoles('receptionist'), assignBed);
-
-// 🛏️ Discharge a bed - receptionist only
+  .post(verifyToken, authorizeRoles('receptionist'), assignBed);
 router.route('/:id/discharge')
   .post(verifyToken, authorizeRoles('receptionist'), dischargeBed);
 

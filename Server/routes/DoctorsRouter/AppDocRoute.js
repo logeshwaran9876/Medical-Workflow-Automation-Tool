@@ -1,4 +1,4 @@
-// 📄 routes/DoctorsRouter/AppDocRoute.js
+
 import express from 'express';
 import {
   getAppointmentsByDoctor,

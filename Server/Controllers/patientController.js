@@ -1,7 +1,5 @@
-// 📄 controllers/patientController.js
-import {Patient} from "../models/Models.js";
 
-// Add new patient
+import {Patient} from "../models/Models.js";
 export const addPatient = async (req, res) => {
   try {
     const { name, age, gender, contact, condition } = req.body;
@@ -11,9 +9,7 @@ export const addPatient = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-// Get all patients
+};
 export const getAllPatients = async (req, res) => {
   try {
     const patients = await Patient.find();
@@ -21,9 +17,7 @@ export const getAllPatients = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-// Get a patient by ID
+};
 export const getPatientById = async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
@@ -32,9 +26,7 @@ export const getPatientById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-// Update a patient
+};
 export const updatePatient = async (req, res) => {
   try {
     const updated = await Patient.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -43,9 +35,7 @@ export const updatePatient = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-// Delete a patient
+};
 export const deletePatient = async (req, res) => {
   try {
     const deleted = await Patient.findByIdAndDelete(req.params.id);

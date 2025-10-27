@@ -1,4 +1,4 @@
-// 💅 Styled PatientManager with Doctor Dashboard Theme and QR Code Feature
+
 import { useState, useEffect } from 'react';
 import {
   FiEdit, FiTrash2, FiUser, FiPhone,
@@ -7,10 +7,7 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { QRCodeSVG } from 'qrcode.react';
-
-// These imports are where the error likely originates from.
-// Ensure each of these files uses 'export default'.
+import { QRCodeSVG } from 'qrcode.react';
 import Modal from "./ui/Modal";
 import Input from './ui/Input';
 import Button from './ui/Button';
@@ -222,7 +219,7 @@ export default function ReceptionistPatient() {
         </table>
       </div>
 
-      {/* Patient Form Modal */}
+      {}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSavePatient} className="p-6 space-y-4 bg-white rounded-2xl">
           <h2 className="text-xl font-semibold">{selectedPatient ? 'Edit Patient' : 'New Patient'}</h2>
@@ -240,7 +237,7 @@ export default function ReceptionistPatient() {
         </form>
       </Modal>
 
-      {/* QR Code Modal */}
+      {}
       <Modal isOpen={qrModalOpen} onClose={() => setQrModalOpen(false)}>
         <div className="p-6 space-y-4 bg-white rounded-2xl text-center">
           <h2 className="text-xl font-semibold">{currentQRPatient?.name}'s QR Code</h2>

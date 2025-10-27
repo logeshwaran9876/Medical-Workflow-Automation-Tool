@@ -9,17 +9,13 @@ const UserDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const { toggleDarkMode, darkMode } = useTheme();
-  const navigate = useNavigate();
-
-  // Get user data from localStorage
+  const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('user')) || {
     name: 'Guest',
     email: '',
     avatar: null,
     role:''
-  };
-
-  // Close dropdown when clicking outside
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -33,19 +29,12 @@ const UserDropdown = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    // Clear authentication data
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    
-    // Show success message
-    toast.success('Logged out successfully');
-    
-    // Redirect to login
-    navigate('/login');
-    
-    // Close dropdown
+    localStorage.removeItem('role');
+    toast.success('Logged out successfully');
+    navigate('/login');
     setIsOpen(false);
   };
 

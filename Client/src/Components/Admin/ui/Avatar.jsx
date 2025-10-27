@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Avatar = ({ src, alt, text, size = 'md', className = '' }) => {
-  // Size classes
+const Avatar = ({ src, alt, text, size = 'md', className = '' }) => {
   const sizeClasses = {
     sm: 'w-8 h-8 text-sm',
     md: 'w-12 h-12 text-base',
     lg: 'w-16 h-16 text-lg',
     xl: 'w-20 h-20 text-xl'
-  };
-
-  // Default background colors
+  };
   const bgColor = 'bg-gray-300';
   const textColor = 'text-gray-600';
 

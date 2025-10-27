@@ -171,7 +171,7 @@ const BedManagement = () => {
       animate={{ opacity: 1 }}
       className="p-4 md:p-6"
     >
-      {/* Error message */}
+      {}
       {error && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -191,7 +191,7 @@ const BedManagement = () => {
         </motion.div>
       )}
 
-      {/* Header Section */}
+      {}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center">
@@ -220,7 +220,7 @@ const BedManagement = () => {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard
           title="Total Beds"
@@ -252,7 +252,7 @@ const BedManagement = () => {
         />
       </div>
 
-      {/* Search and Filters */}
+      {}
       <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
         <div className="flex flex-col gap-4">
           <div className="relative">
@@ -330,7 +330,7 @@ const BedManagement = () => {
         </div>
       </div>
 
-      {/* Beds Grid */}
+      {}
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
@@ -365,7 +365,7 @@ const BedManagement = () => {
         </motion.div>
       )}
 
-      {/* Modals */}
+      {}
       <AnimatePresence>
         {showAssignModal && (
           <AssignBedModal

@@ -11,11 +11,7 @@ import {
   FiSave, // Added FiSave for update button
   FiBell, // For notified status
 } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
-// Removed these imports as we are using the custom components defined below
-// import Modal from "./ui/Modal";
-// import Input from "./ui/Input";
-// import Button from "./ui/Button";
+import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "react-toastify";
 
 const API_BASE = "http://localhost:5000/api";
@@ -38,11 +34,7 @@ const emptyForm = {
   patient: "",
   doctor: "", // This will be set dynamically from getDoctorId
   followUpDate: "",
-};
-
-// --- Reusable UI Components (Using Custom Prefix for clarity) ---
-
-// Custom Modal Component
+};
 const CustomModal = ({ isOpen, onClose, children, title, size = 'md', overlayClassName = '', className = '' }) => {
   useEffect(() => {
     if (isOpen) {
@@ -98,9 +90,7 @@ const CustomModal = ({ isOpen, onClose, children, title, size = 'md', overlayCla
       </AnimatePresence>
     </>
   );
-};
-
-// Custom Input Component
+};
 const CustomInput = ({ label, name, type = 'text', value, onChange, icon, error, className = '', ...props }) => (
   <div className={`mb-4 ${className}`}>
     {label && <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
@@ -126,9 +116,7 @@ const CustomInput = ({ label, name, type = 'text', value, onChange, icon, error,
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Custom Select Component
+);
 const CustomSelect = ({ label, name, value, onChange, options, icon, error, className = '', ...props }) => (
   <div className={`mb-4 ${className}`}>
     {label && <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
@@ -162,9 +150,7 @@ const CustomSelect = ({ label, name, value, onChange, options, icon, error, clas
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Custom Button Component
+);
 const CustomButton = ({ children, variant = 'primary', loading = false, onClick, type = 'button', className = '' }) => {
   const variants = {
     primary: 'bg-teal-600 hover:bg-teal-700 text-white',
@@ -192,17 +178,12 @@ const CustomButton = ({ children, variant = 'primary', loading = false, onClick,
       ) : children}
     </button>
   );
-};
-
-// Custom Loading Spinner Component
+};
 const CustomLoadingSpinner = ({ fullPage = false }) => (
   <div className={`flex items-center justify-center ${fullPage ? 'h-screen' : ''}`}>
     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-500"></div>
   </div>
-);
-
-
-// --- DoctorFollowUps Component ---
+);
 
 export default function DoctorFollowUps() {
   const doctorId = getDoctorId(); // Get doctor ID dynamically
@@ -216,9 +197,7 @@ export default function DoctorFollowUps() {
   const [isLoading, setIsLoading] = useState(true); // For initial page load
   const [isSubmitting, setIsSubmitting] = useState(false); // For form submission
 
-  const token = localStorage.getItem("authToken"); // Get auth token
-
-  // Memoized function to fetch follow-ups
+  const token = localStorage.getItem("authToken"); // Get auth token
   const fetchFollowUps = useCallback(async () => {
     if (!doctorId) {
       setIsLoading(false); // Stop loading if no doctorId
@@ -242,9 +221,7 @@ export default function DoctorFollowUps() {
     } finally {
       setIsLoading(false);
     }
-  }, [doctorId, token]);
-
-  // Memoized function to fetch patients
+  }, [doctorId, token]);
   const fetchPatients = useCallback(async () => {
     try {
       const { data } = await axios.get(`${API_BASE}/patients`, {
@@ -258,9 +235,7 @@ export default function DoctorFollowUps() {
       console.error("Error fetching patients:", err);
       setPatients([]);
     }
-  }, [token]);
-
-  // Initial data fetch on component mount
+  }, [token]);
   useEffect(() => {
     if (doctorId) { // Only fetch if doctorId is available
       fetchFollowUps();
@@ -291,16 +266,14 @@ export default function DoctorFollowUps() {
     try {
       const payload = { ...formData, doctor: doctorId }; // Ensure doctorId is always included
 
-      if (selected) {
-        // Update existing follow-up
+      if (selected) {
         await axios.put(`${API_BASE}/followups/${selected._id}`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         toast.success("Follow-up updated successfully!");
-      } else {
-        // Create new follow-up
+      } else {
         await axios.post(`${API_BASE}/followups`, payload, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -367,9 +340,7 @@ export default function DoctorFollowUps() {
       patientName.includes(searchTermLower) ||
       doctorName.includes(searchTermLower)
     );
-  });
-
-  // Prepare options for the CustomSelect component for patients
+  });
   const patientOptions = patients.map((p) => ({
     value: p._id,
     label: `${p.name} ${p.email ? `(${p.email})` : ''}`,
@@ -380,7 +351,7 @@ export default function DoctorFollowUps() {
 
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      {/* Header Section */}
+      {}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Patient Follow-Ups</h1>
@@ -415,7 +386,7 @@ export default function DoctorFollowUps() {
         </div>
       </div>
 
-      {/* Follow-Ups Table */}
+      {}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar max-h-[600px]">
           <table className="min-w-full divide-y divide-gray-200">
@@ -558,11 +529,11 @@ export default function DoctorFollowUps() {
         </div>
       </div>
 
-      {/* Follow-Up Form Modal */}
+      {}
       <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} title={selected ? 'Edit Follow-Up' : 'Schedule New Follow-Up'}>
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="space-y-4">
-            {/* Patient Select - Now using CustomSelect */}
+            {}
             <CustomSelect
               label="Patient"
               name="patient"
@@ -584,7 +555,7 @@ export default function DoctorFollowUps() {
               </p>
             )}
 
-            {/* Follow-Up Date Input */}
+            {}
             <CustomInput
               label="Follow-Up Date"
               type="date"

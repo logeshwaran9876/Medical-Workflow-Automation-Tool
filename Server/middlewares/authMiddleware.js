@@ -1,8 +1,6 @@
-// 📄 middlewares/authMiddleware.js
-import jwt from "jsonwebtoken";
-import { User } from "../models/Models.js"; // Ensure this path and model name are correct
 
-// Token Verification Middleware
+import jwt from "jsonwebtoken";
+import { User } from "../models/Models.js"; // Ensure this path and model name are correct
 export const verifyToken = async (req, res, next) => {
   try {
     console.log("🔐 [verifyToken] Incoming request...");
@@ -56,9 +54,7 @@ export const verifyToken = async (req, res, next) => {
     console.error("💥 [verifyToken] Internal error:", err.message);
     res.status(403).json({ message: "Access denied. Invalid or corrupted token." });
   }
-};
-
-// Role-Based Authorization Middleware
+};
 export const authorizeRoles = (...allowedRoles) => {
   return (req, res, next) => {
     console.log("🛂 [authorizeRoles] Checking roles:", allowedRoles);

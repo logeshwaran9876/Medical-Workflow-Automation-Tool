@@ -39,9 +39,7 @@ export default function DoctorsTable({
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters(prev => ({ ...prev, [name]: value }));
-  };
-
-  // Safe filtering with array check and optional chaining
+  };
   const filteredDoctors = Array.isArray(doctors) 
     ? doctors.filter(doctor => {
         const matchesStatus = filters.status === '' || doctor.status === filters.status;
@@ -53,19 +51,17 @@ export default function DoctorsTable({
 
         return matchesStatus && matchesSpecialization && matchesSearch;
       })
-    : [];
-
-  // Safe unique specializations
+    : [];
   const uniqueSpecializations = Array.isArray(doctors) 
     ? [...new Set(doctors.map(d => d.specialization).filter(Boolean))]
     : [];
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-      {/* Filter Section */}
+      {}
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Status Filter */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
             <select
@@ -83,7 +79,7 @@ export default function DoctorsTable({
             </select>
           </div>
           
-          {/* Specialization Filter */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Specialization</label>
             <select
@@ -101,7 +97,7 @@ export default function DoctorsTable({
             </select>
           </div>
           
-          {/* Search Filter */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search</label>
             <input
@@ -116,7 +112,7 @@ export default function DoctorsTable({
         </div>
       </div>
 
-      {/* Table Section */}
+      {}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-50 dark:bg-gray-700">
@@ -136,7 +132,7 @@ export default function DoctorsTable({
                   whileHover={{ backgroundColor: 'rgba(249, 250, 251, 0.5)' }}
                   className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                 >
-                  {/* Doctor Info */}
+                  {}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center">
@@ -161,7 +157,7 @@ export default function DoctorsTable({
                     </div>
                   </td>
                   
-                  {/* Contact Info */}
+                  {}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center text-sm text-gray-900 dark:text-white">
                       <FiMail className="mr-2 text-gray-400" />
@@ -173,7 +169,7 @@ export default function DoctorsTable({
                     </div>
                   </td>
                   
-                  {/* Specialization */}
+                  {}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Badge 
                       color={specializationColors[doctor.specialization?.toLowerCase()] || 'gray'}
@@ -182,14 +178,14 @@ export default function DoctorsTable({
                     </Badge>
                   </td>
                   
-                  {/* Status */}
+                  {}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[doctor.status]}`}>
                       {doctor.status}
                     </span>
                   </td>
                   
-                  {/* Actions */}
+                  {}
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
                       <button 

@@ -10,8 +10,7 @@ export default function Appointments() {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const token = localStorage.getItem("authToken");
-  // Memoize the fetchAppointments function
+  const token = localStorage.getItem("authToken");
   const fetchAppointments = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -41,8 +40,7 @@ export default function Appointments() {
   }, [fetchAppointments]); // Depend on fetchAppointments
 
   const handleStatusChange = async (id, status) => {
-    try {
-      // Optimistic update
+    try {
       setAppointments(prev => 
         prev.map(app => app._id === id ? { ...app, status } : app)
       );
@@ -62,34 +60,27 @@ export default function Appointments() {
         throw new Error(errorData.message || 'Failed to update status');
       }
 
-      toast.success('Status updated successfully');
-      // No need to re-fetch all if only status changed and optimistic update is fine
-    } catch (err) {
-      // Revert on error (could fetch original data or just revert the state change)
-      // For simplicity, we'll just log and toast the error. A more robust solution
-      // would revert the specific appointment's status or re-fetch.
+      toast.success('Status updated successfully');
+    } catch (err) {
       console.error('Status update error:', err);
       toast.error(err.message || 'Failed to update status');
       fetchAppointments(); // Re-fetch to ensure data consistency
     }
   };
 
-  const handleAddAppointment = (newAppointment) => {
-    // Instead of directly adding, re-fetch all appointments to get populated data
+  const handleAddAppointment = (newAppointment) => {
     fetchAppointments(); 
     setIsModalOpen(false);
     toast.success('Appointment created successfully');
   };
 
-  const handleEditAppointment = (updatedAppointment) => {
-    // Instead of directly updating, re-fetch all appointments to get populated data
+  const handleEditAppointment = (updatedAppointment) => {
     fetchAppointments(); 
     setIsModalOpen(false);
     toast.success('Appointment updated successfully');
   };
 
-  const handleDeleteAppointment = (deletedId) => {
-    // Re-fetch all appointments after deletion to ensure data consistency
+  const handleDeleteAppointment = (deletedId) => {
     fetchAppointments();
     toast.success('Appointment deleted successfully');
   };
@@ -136,8 +127,7 @@ export default function Appointments() {
           setIsModalOpen(true);
         }}
         onDelete={handleDeleteAppointment}
-        onView={(appointment) => {
-          // Implement view logic if needed
+        onView={(appointment) => {
           console.log('View appointment:', appointment);
         }}
       />

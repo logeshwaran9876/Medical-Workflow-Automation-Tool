@@ -1,4 +1,4 @@
-// src/components/AppointmentModule/AppointmentModule.jsx
+
 import React, { useState } from 'react';
 import DoctorSelection from './DoctorSelection'; // Adjust path as needed
 import AppointmentBooking from './AppointmentBooking'; // Adjust path as needed
@@ -36,7 +36,7 @@ export default function AppointmentModule() {
                 />
             )}
 
-            {/* ToastContainer for notifications */}
+            {}
             <ToastContainer
                 position="bottom-right"
                 autoClose={3000}

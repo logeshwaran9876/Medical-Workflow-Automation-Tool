@@ -1,7 +1,5 @@
-// ProtectedRoute.jsx
-import { Navigate, Outlet } from 'react-router-dom';
 
-// Make sure you're using default export
+import { Navigate, Outlet } from 'react-router-dom';
 const ProtectedRoute = ({ redirectPath = '/login' }) => {
   const token = localStorage.getItem('authToken');
   
@@ -10,7 +8,5 @@ const ProtectedRoute = ({ redirectPath = '/login' }) => {
   }
 
   return <Outlet />;
-};
-
-// This must be a default export
+};
 export default ProtectedRoute;

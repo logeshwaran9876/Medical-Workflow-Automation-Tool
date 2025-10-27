@@ -8,18 +8,14 @@ export default function SearchBar({
   debounceTime = 300,
   className = "",
 }) {
-  const [inputValue, setInputValue] = useState(value);
-
-  // Debounce the input
+  const [inputValue, setInputValue] = useState(value);
   useEffect(() => {
     const timer = setTimeout(() => {
       onChange(inputValue);
     }, debounceTime);
 
     return () => clearTimeout(timer);
-  }, [inputValue, debounceTime, onChange]);
-
-  // Sync with external value changes
+  }, [inputValue, debounceTime, onChange]);
   useEffect(() => {
     setInputValue(value);
   }, [value]);

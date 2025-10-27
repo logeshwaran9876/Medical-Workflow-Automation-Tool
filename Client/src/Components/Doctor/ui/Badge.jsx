@@ -1,4 +1,4 @@
-// src/components/doctor/ui/Badge.jsx
+
 export default function Badge({ children, color = 'gray' }) {
   const colors = {
     indigo: 'bg-indigo-100 text-indigo-800',

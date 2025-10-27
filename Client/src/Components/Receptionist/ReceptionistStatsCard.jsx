@@ -48,7 +48,7 @@ const ReceptionistStatsCard = ({ title, value, icon, color, trend }) => {
       whileTap={{ scale: 0.98 }}
       className={`${selectedColor.bg} ${selectedColor.border} rounded-2xl shadow-sm p-5 relative overflow-hidden border backdrop-blur-sm`}
     >
-      {/* Floating decorative elements */}
+      {}
       <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10" style={{ 
         background: `radial-gradient(circle, ${selectedColor.iconColor} 0%, transparent 70%)`
       }}></div>

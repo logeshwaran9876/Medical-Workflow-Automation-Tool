@@ -1,4 +1,4 @@
-// src/components/Sidebar.jsx
+
 import { NavLink, useNavigate } from 'react-router-dom';
 import { 
   FiHome, FiCalendar, FiUser, FiUsers,
@@ -17,19 +17,11 @@ const navItems = [
 export default function Sidebar() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear all authentication-related items from storage
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    
-    // If you're using any state management (like Redux or Context), reset those here
-    
-    // Redirect to login page
-    navigate('/login');
-    
-    // Optional: Force a full page reload to reset application state
-    // window.location.reload();
+    localStorage.removeItem('role');
+    navigate('/login');
   };
 
   return (

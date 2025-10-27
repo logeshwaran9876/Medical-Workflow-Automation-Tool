@@ -1,4 +1,4 @@
-// src/components/doctor/Layout.jsx
+
 import { Outlet } from 'react-router-dom'
 import DoctorNavbar from './DoctorNavbar'
 import DoctorSidebar from './DoctorSidebar'

@@ -7,30 +7,21 @@ import fs from 'fs';
 
 export const createBilling = async (req, res) => {
   try {
-    const { patientId, bedId, items, discount, notes, dueDate } = req.body;
-    
-
-    // Validate patient exists
+    const { patientId, bedId, items, discount, notes, dueDate } = req.body;
     const patient = await Patient.findById(patientId);
     if (!patient) {
       return res.status(404).json({ success: false, message: 'Patient not found' });
-    }
-
-    // Validate bed if provided
+    }
     let bed = null;
     if (bedId) {
       bed = await Beds.findById(bedId);
       if (!bed) {
         return res.status(404).json({ success: false, message: 'Bed not found' });
       }
-    }
-
-    // Calculate amounts
+    }
     const subtotal = items.reduce((sum, item) => sum + (item.rate * item.quantity), 0);
     const tax = items.reduce((sum, item) => sum + (item.rate * item.quantity * (item.taxRate || 0) / 100), 0);
-    const totalAmount = subtotal + tax - (discount || 0);
-
-    // Create billing record
+    const totalAmount = subtotal + tax - (discount || 0);
     const billing = new Bill({
       patient: patientId,
       bed: bedId,
@@ -45,9 +36,7 @@ export const createBilling = async (req, res) => {
      
     });
 
-    await billing.save();
-
-    // Update bed status if bed is assigned
+    await billing.save();
     if (bedId) {
       bed.status = 'occupied';
       bed.patient = patientId;
@@ -95,9 +84,7 @@ export const getBillings = async (req, res) => {
 
 export const getFinancialSummary = async (req, res) => {
   try {
-    const summary = await Bill.getFinancialSummary();
-    
-    // Additional stats by status
+    const summary = await Bill.getFinancialSummary();
     const statusStats = await Bill.aggregate([
       { $group: { _id: "$status", total: { $sum: "$totalAmount" }, count: { $sum: 1 } } }
     ]);
@@ -145,9 +132,7 @@ export const updateBilling = async (req, res) => {
     const billing = await Bill.findById(req.params.id);
     if (!billing) {
       return res.status(404).json({ success: false, message: 'Billing record not found' });
-    }
-    
-    // Update fields
+    }
     if (items) billing.items = items;
     if (discount !== undefined) billing.discount = discount;
     if (notes) billing.notes = notes;
@@ -172,18 +157,14 @@ export const recordPayment = async (req, res) => {
     const billing = await Bill.findById(req.params.id);
     if (!billing) {
       return res.status(404).json({ success: false, message: 'Billing record not found' });
-    }
-    
-    // Validate payment amount doesn't exceed balance
+    }
     const remainingBalance = billing.totalAmount - billing.paidAmount;
     if (amount > remainingBalance) {
       return res.status(400).json({ 
         success: false, 
         message: `Payment amount exceeds remaining balance of ₹${remainingBalance.toFixed(2)}` 
       });
-    }
-    
-    // Create payment
+    }
     const payment = {
       amount,
       paymentMethod,
@@ -218,45 +199,29 @@ export const generateInvoice = async (req, res) => {
     }
 
     const invoiceNumber = generateInvoiceNumber(billing);
-    const doc = new PDFDocument({ margin: 50 });
-
-    // Set response headers
+    const doc = new PDFDocument({ margin: 50 });
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=invoice-${invoiceNumber}.pdf`);
-    
-    // Pipe the PDF directly to the response
-    doc.pipe(res);
-
-    // Add invoice header
+    res.setHeader('Content-Disposition', `attachment; filename=invoice-${invoiceNumber}.pdf`);
+    doc.pipe(res);
     doc.fontSize(20).text('INVOICE', { align: 'center' });
-    doc.moveDown();
-    
-    // Invoice info
+    doc.moveDown();
     doc.fontSize(10)
        .text(`Invoice Number: ${invoiceNumber}`, { align: 'left' })
        .text(`Date: ${new Date(billing.createdAt).toLocaleDateString()}`, { align: 'left' })
-       .moveDown();
-
-    // Patient information
+       .moveDown();
     doc.fontSize(12).text('Bill To:', { underline: true });
     doc.fontSize(10)
        .text(`Name: ${billing.patient.name}`)
        .text(`Contact: ${billing.patient.contact}`)
-       .moveDown();
-
-    // Bill items table header
+       .moveDown();
     doc.fontSize(12).text('Itemized Charges:', { underline: true });
-    doc.moveDown();
-
-    // Table headers
+    doc.moveDown();
     doc.font('Helvetica-Bold')
        .text('Description', 50, doc.y)
        .text('Qty', 250, doc.y)
        .text('Rate', 300, doc.y)
        .text('Amount', 350, doc.y, { width: 100, align: 'right' });
-    doc.moveDown();
-
-    // Bill items
+    doc.moveDown();
     doc.font('Helvetica');
     billing.items.forEach(item => {
       doc.text(item.description, 50, doc.y)
@@ -264,9 +229,7 @@ export const generateInvoice = async (req, res) => {
          .text(`₹${item.rate.toFixed(2)}`, 300, doc.y)
          .text(`₹${item.amount.toFixed(2)}`, 350, doc.y, { width: 100, align: 'right' });
       doc.moveDown();
-    });
-
-    // Summary
+    });
     doc.moveDown().moveDown();
     doc.font('Helvetica-Bold')
        .text('Subtotal:', 300, doc.y)
@@ -284,26 +247,18 @@ export const generateInvoice = async (req, res) => {
 
     doc.font('Helvetica-Bold')
        .text('Total Amount:', 300, doc.y)
-       .text(`₹${billing.totalAmount.toFixed(2)}`, 350, doc.y, { width: 100, align: 'right' });
-
-    // Footer
+       .text(`₹${billing.totalAmount.toFixed(2)}`, 350, doc.y, { width: 100, align: 'right' });
     doc.moveDown(3);
     doc.fontSize(8)
-       .text('Thank you for your business!', { align: 'center' });
-
-    // Finalize the PDF
+       .text('Thank you for your business!', { align: 'center' });
     doc.end();
 
   } catch (err) {
     console.error('Error generating invoice:', err);
     res.status(500).json({ success: false, message: 'Server error' });
   }
-};
-
-// Helper function for PDF generation (placeholder)
-async function generatePdfInvoice({ billing, invoiceNumber, invoiceDate }) {
-  // Implement actual PDF generation using your preferred library
-  // This is just a placeholder
+};
+async function generatePdfInvoice({ billing, invoiceNumber, invoiceDate }) {
   return {
     pipe: () => {}
   };

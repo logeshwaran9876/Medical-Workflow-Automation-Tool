@@ -1,4 +1,4 @@
-// src/components/AppointmentModule/AppointmentBooking.jsx
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,9 +23,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
     const [isLoadingSlots, setIsLoadingSlots] = useState(false);
     const [isLoadingPatients, setIsLoadingPatients] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const token = getAuthToken();
-
-    // Fetch available slots for the selected doctor and date
+    const token = getAuthToken();
     const fetchAvailableSlots = useCallback(async () => {
         if (!doctorId || !selectedDate) return;
 
@@ -48,9 +46,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
         } finally {
             setIsLoadingSlots(false);
         }
-    }, [doctorId, selectedDate, token]);
-
-    // Fetch all patients for the dropdown
+    }, [doctorId, selectedDate, token]);
     const fetchPatients = useCallback(async () => {
         try {
             setIsLoadingPatients(true);
@@ -143,7 +139,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
             </div>
 
             <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-md border border-gray-200 p-6 space-y-6">
-                {/* Date Selection */}
+                {}
                 <CustomInput
                     label="Select Date"
                     type="date"
@@ -155,7 +151,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
                     required
                 />
 
-                {/* Available Time Slots */}
+                {}
                 <div>
                     <h3 className="text-lg font-semibold text-gray-700 mb-3 flex items-center gap-2">
                         <FiClock className="text-teal-600" /> Available Time Slots for {new Date(selectedDate).toLocaleDateString()}
@@ -194,7 +190,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
                     )}
                 </div>
 
-                {/* Patient Selection */}
+                {}
                 <CustomSelect
                     label="Select Patient"
                     name="patient"
@@ -210,7 +206,7 @@ export default function AppointmentBooking({ doctorId, doctorName, onBack }) {
                 )}
 
 
-                {/* Submit Button */}
+                {}
                 <div className="pt-4 border-t border-gray-100 flex justify-end">
                     <CustomButton
                         type="submit"

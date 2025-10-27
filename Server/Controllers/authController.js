@@ -1,14 +1,10 @@
-// 📄 controllers/authController.js
+
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { User } from "../models/Models.js"; // Assuming User model is correctly imported
-
-// Register new user (admin only for now, but can be adjusted for self-signup)
+import { User } from "../models/Models.js"; // Assuming User model is correctly imported
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
-
-    // Basic validation
+    const { name, email, password, role } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ message: "Please enter all required fields: name, email, and password." });
     }
@@ -17,10 +13,7 @@ export const registerUser = async (req, res) => {
     if (existingUser) return res.status(400).json({ message: "User with this email already exists." });
 
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Default role to 'receptionist' if not provided or invalid for self-registration
-    // For admin-only registration, you might remove the default and require 'role'
+    const hashedPassword = await bcrypt.hash(password, salt);
     const userRole = ['admin', 'doctor', 'receptionist'].includes(role) ? role : 'receptionist';
 
     const newUser = new User({ name, email, password: hashedPassword, role: userRole });
@@ -39,16 +32,11 @@ export const loginUser = async (req, res) => {
     const { email, password } = req.body; 
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Invalid credentials: User not found." });
-
-    // --- CRITICAL FIX: AWAIT bcrypt.compare ---
+    if (!user) return res.status(400).json({ message: "Invalid credentials: User not found." });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials: Incorrect password." });
 
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1d" });
-
-    // Determine redirect URL based on user role
-    // IMPORTANT: These URLs must EXACTLY match the paths defined in your frontend's React Router setup (App.js)
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1d" });
     let redirectUrl = '/'; // Default fallback
 
     switch (user.role) {
@@ -74,13 +62,9 @@ export const loginUser = async (req, res) => {
     console.error("Login User Error:", error.message); // Log full error for debugging
     res.status(500).json({ message: "Login failed.", error: error.message }); // Send error details
   }
-};
-
-// Logout User
+};
 export const logoutUser = async (req, res) => {
-  try {
-    // For stateless JWTs, server-side logout is minimal.
-    // This endpoint primarily serves as a signal to the client to clear its token.
+  try {
     res.status(200).json({ message: "Logged out successfully." });
   } catch (error) {
     console.error("Logout User Error:", error.message);
@@ -90,8 +74,7 @@ export const logoutUser = async (req, res) => {
 
 
 export const getMe = async (req, res) => {
-  try {
-    // req.user is set by the verifyToken middleware
+  try {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "Not authorized, no user ID in token." });
     }

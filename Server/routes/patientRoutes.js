@@ -9,9 +9,7 @@ import {
 
 import { verifyToken, authorizeRoles } from "../middlewares/authMiddleware.js";
 
-const router = express.Router();
-
-// ✅ Add `verifyToken` BEFORE `authorizeRoles`
+const router = express.Router();
 router.post("/", verifyToken, authorizeRoles("admin", "receptionist"), addPatient);
 router.get("/", verifyToken, authorizeRoles("admin", "receptionist", "doctor"), getAllPatients);
 router.get("/:id", verifyToken, authorizeRoles("admin", "receptionist", "doctor"), getPatientById);

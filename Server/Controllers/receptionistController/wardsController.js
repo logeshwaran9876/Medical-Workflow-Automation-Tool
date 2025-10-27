@@ -1,11 +1,6 @@
-import { Ward } from "../../models/Models.js";
-
-// @desc    Get all wards with optional filtering
-// @route   GET /api/wards
-// @access  Private
+import { Ward } from "../../models/Models.js";
 export const getWards = async (req, res) => {
-  try {
-    // Add filtering if needed (example: by ward type)
+  try {
     const { type } = req.query;
     const filter = type ? { type } : {};
 
@@ -33,11 +28,7 @@ export const getWards = async (req, res) => {
       message: err.message,
     });
   }
-};
-
-// @desc    Create new ward
-// @route   POST /api/wards
-// @access  Private/Admin
+};
 export const createWard = async (req, res) => {
   try {
     const { 
@@ -47,26 +38,20 @@ export const createWard = async (req, res) => {
       floor, 
       inCharge, 
       description 
-    } = req.body;
-    
-    // Validate required fields
+    } = req.body;
     if (!name || !type || !capacity) {
       return res.status(400).json({
         success: false,
         error: 'Please provide name, type, and capacity'
       });
-    }
-
-    // Check if ward already exists
+    }
     const existingWard = await Ward.findOne({ name });
     if (existingWard) {
       return res.status(400).json({
         success: false,
         error: 'Ward with this name already exists'
       });
-    }
-
-    // Create the ward without createdBy field
+    }
     const ward = await Ward.create({
       name,
       type,
@@ -74,8 +59,7 @@ export const createWard = async (req, res) => {
       floor: floor || 1,
       currentOccupancy: 0,
       inCharge: inCharge || null,
-      description: description || null
-      // Removed createdBy since we're not using auth yet
+      description: description || null
     });
 
     res.status(201).json({

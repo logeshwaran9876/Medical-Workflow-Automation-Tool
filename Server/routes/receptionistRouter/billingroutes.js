@@ -11,9 +11,7 @@ import {
 
 import { verifyToken, authorizeRoles } from "../../middlewares/authMiddleware.js";
 
-const billingRoutes = express.Router();
-
-// 🔒 Secured routes for receptionists and admins only
+const billingRoutes = express.Router();
 billingRoutes.route('/')
   .get(verifyToken, authorizeRoles("admin", "receptionist"), getBillings)
   .post(verifyToken, authorizeRoles("admin", "receptionist"), createBilling);

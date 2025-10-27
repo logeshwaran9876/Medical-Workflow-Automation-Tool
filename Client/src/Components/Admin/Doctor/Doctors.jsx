@@ -1,4 +1,4 @@
-// components/Doctors.js
+
 import { useState, useEffect } from 'react';
 import DoctorsTable from './DoctorsTable';
 import DoctorModal from './DoctorModal';

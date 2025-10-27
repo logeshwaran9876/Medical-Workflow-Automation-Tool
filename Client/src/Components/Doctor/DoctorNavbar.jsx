@@ -7,9 +7,7 @@ import { toast } from 'react-toastify';
 export default function DoctorNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const navigate = useNavigate();
-
-  // Get doctor data from localStorage
+  const navigate = useNavigate();
   const doctorDetails = JSON.parse(localStorage.getItem('user')) || {
     name: "Doctor",
     email: "",
@@ -25,23 +23,14 @@ export default function DoctorNavbar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleLogout = () => {
-    // Clear authentication data
+  const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
-    localStorage.removeItem('role');
-    
-    // Show success message
-    toast.success('Logged out successfully');
-    
-    // Redirect to login
-    navigate('/login');
-    
-    // Close dropdown
+    localStorage.removeItem('role');
+    toast.success('Logged out successfully');
+    navigate('/login');
     setIsDropdownOpen(false);
-  };
-
-  // Close dropdown when clicking outside
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

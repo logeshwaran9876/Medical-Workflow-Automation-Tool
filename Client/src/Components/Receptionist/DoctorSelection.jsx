@@ -1,4 +1,4 @@
-// src/components/AppointmentModule/DoctorSelection.jsx
+
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,9 +14,7 @@ export default function DoctorSelection({ onSelectDoctor }) {
     const [doctors, setDoctors] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const token = getAuthToken();
-
-    // Callback to fetch doctors from the API
+    const token = getAuthToken();
     const fetchDoctors = useCallback(async () => {
         try {
             setIsLoading(true);
@@ -42,9 +40,7 @@ export default function DoctorSelection({ onSelectDoctor }) {
 
     useEffect(() => {
         fetchDoctors();
-    }, [fetchDoctors]);
-
-    // Memoized filtered doctors based on search term
+    }, [fetchDoctors]);
     const filteredDoctors = useMemo(() => {
         if (!searchTerm) {
             return doctors;
@@ -54,9 +50,7 @@ export default function DoctorSelection({ onSelectDoctor }) {
             doctor.name.toLowerCase().includes(lowerCaseSearchTerm) ||
             doctor.specialization?.toLowerCase().includes(lowerCaseSearchTerm)
         );
-    }, [doctors, searchTerm]);
-
-    // Memoized grouped doctors by specialization
+    }, [doctors, searchTerm]);
     const groupedDoctors = useMemo(() => {
         const groups = new Map();
 
@@ -71,16 +65,14 @@ export default function DoctorSelection({ onSelectDoctor }) {
         return Array.from(groups.entries()).sort(([specializationA], [specializationB]) =>
             specializationA.localeCompare(specializationB)
         );
-    }, [filteredDoctors]);
-
-    // Show loading spinner while data is being fetched
+    }, [filteredDoctors]);
     if (isLoading) {
         return <CustomLoadingSpinner fullPage />;
     }
 
     return (
         <div className="p-6 space-y-8 max-w-6xl mx-auto">
-            {/* Header and Search Bar */}
+            {}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-extrabold text-gray-800">Select a Doctor</h1>
@@ -95,7 +87,7 @@ export default function DoctorSelection({ onSelectDoctor }) {
                 />
             </div>
 
-            {/* No Doctors Found State */}
+            {}
             {Object.keys(groupedDoctors).length === 0 && (
                 <div className="text-center py-12 text-gray-500">
                     <FiUser className="mx-auto h-16 w-16 text-gray-400 mb-4" />
@@ -106,13 +98,13 @@ export default function DoctorSelection({ onSelectDoctor }) {
                 </div>
             )}
 
-            {/* Doctor List Grouped by Specialization */}
+            {}
             {Object.keys(groupedDoctors).length > 0 && (
                 <div className="space-y-10">
                     <AnimatePresence mode="wait">
                         {groupedDoctors.map(([specialization, doctorsInSpecialization], groupIndex) => (
                             <div key={specialization} className="space-y-5">
-                                {/* Specialization Group Heading */}
+                                {}
                                 <motion.h2
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -123,8 +115,8 @@ export default function DoctorSelection({ onSelectDoctor }) {
                                     {specialization === 'Unspecified' ? 'Other Doctors' : specialization}
                                 </motion.h2>
 
-                                {/* Grid of Doctor Cards for the current specialization */}
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {/* Added xl:grid-cols-4 for larger screens */}
+                                {}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> {}
                                     <AnimatePresence>
                                         {doctorsInSpecialization.map((doctor, index) => (
                                             <motion.div
@@ -138,9 +130,9 @@ export default function DoctorSelection({ onSelectDoctor }) {
                                                         cursor-pointer flex flex-col"
                                                 onClick={() => onSelectDoctor(doctor._id, doctor.name)}
                                             >
-                                                {/* Doctor Card Content */}
+                                                {}
                                                 <div className="p-6 flex-grow flex flex-col items-center text-center">
-                                                    {/* Doctor Avatar/Image */}
+                                                    {}
                                                     <div className="w-24 h-24 rounded-full bg-teal-100 flex items-center justify-center mb-4 border-2 border-teal-300">
                                                         {doctor.profileImageUrl ? (
                                                             <img
@@ -193,7 +185,7 @@ export default function DoctorSelection({ onSelectDoctor }) {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                {/* Book Appointment Button */}
+                                                {}
                                                 <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end">
                                                     <button
                                                         className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md

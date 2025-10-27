@@ -1,7 +1,5 @@
 
-import { Appointment } from "../../models/Models.js"
-
-// Book a new appointment
+import { Appointment } from "../../models/Models.js"
 export const bookAppointment = async (req, res) => {
   try {
     const { patientId, doctorId, date, time, reason, status } = req.body;
@@ -20,9 +18,7 @@ export const bookAppointment = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-// Get all appointments (optionally filter by doctor or date)
+};
 export const getAppointments = async (req, res) => {
   try {
     const filter = {};
@@ -34,9 +30,7 @@ export const getAppointments = async (req, res) => {
     if (req.query.date) {
       const dateOnly = new Date(req.query.date);
       const nextDate = new Date(dateOnly);
-      nextDate.setDate(dateOnly.getDate() + 1);
-
-      // Assuming your field is named `appointmentDate` and it's a Date type
+      nextDate.setDate(dateOnly.getDate() + 1);
       filter.appointmentDate = {
         $gte: dateOnly,
         $lt: nextDate,
@@ -51,10 +45,7 @@ export const getAppointments = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
-
-
-// Update appointment status (e.g. completed or cancelled)
+};
 export const updateAppointmentStatus = async (req, res) => {
   try {
     const { status } = req.body;

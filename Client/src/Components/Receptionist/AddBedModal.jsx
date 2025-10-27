@@ -45,8 +45,7 @@ const AddBedModal = ({ wards, onClose, onAdd }) => {
     setLoading(true);
     setError('');
 
-    try {
-      // Validate required fields
+    try {
       if (!formData.bedNumber || !formData.ward || !formData.ratePerDay) {
         throw new Error('Please fill all required fields');
       }

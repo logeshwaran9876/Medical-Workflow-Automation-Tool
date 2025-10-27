@@ -1,7 +1,7 @@
 export default function ReceptionistLogo() {
     return (
       <div className="flex items-center space-x-2">
-        {/* Icon */}
+        {}
         <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
@@ -19,7 +19,7 @@ export default function ReceptionistLogo() {
           </svg>
         </div>
   
-        {/* Text */}
+        {}
         <div>
           <h1 className="text-xl font-bold text-gray-800">MediCare</h1>
           <p className="text-xs text-blue-600 font-medium">Reception Desk</p>

@@ -1,8 +1,4 @@
-import {Beds as Bed,Ward,Patient } from "../../models/Models.js";
-
-// @desc    Get all beds
-// @route   GET /api/beds
-// @access  Private
+import {Beds as Bed,Ward,Patient } from "../../models/Models.js";
 export const getBeds = async (req, res) => {
   try {
     const { status, ward, available } = req.query;
@@ -27,16 +23,10 @@ export const getBeds = async (req, res) => {
       error: 'Server Error'
     });
   }
-};
-
-// @desc    Assign patient to bed
-// @route   POST /api/beds/:id/assign
-// @access  Private
+};
 export const assignBed = async (req, res) => {
   try {
-    const { patientId, admissionDate, expectedDischarge } = req.body;
-    
-    // Validate required fields
+    const { patientId, admissionDate, expectedDischarge } = req.body;
     if (!patientId) {
       return res.status(400).json({
         success: false,
@@ -65,17 +55,13 @@ export const assignBed = async (req, res) => {
         success: false,
         error: 'Patient not found'
       });
-    }
-    
-    // Update bed without lastUpdatedBy
+    }
     bed.patient = patientId;
     bed.status = 'occupied';
     bed.admissionDate = admissionDate || new Date();
     bed.dischargeDate = expectedDischarge;
     
-    await bed.save();
-    
-    // Update ward occupancy
+    await bed.save();
     await Ward.findByIdAndUpdate(bed.ward, { $inc: { currentOccupancy: 1 } });
     
     res.status(200).json({
@@ -99,11 +85,7 @@ export const assignBed = async (req, res) => {
       message: err.message
     });
   }
-};
-
-// @desc    Discharge patient from bed
-// @route   POST /api/beds/:id/discharge
-// @access  Private
+};
 export const dischargeBed = async (req, res) => {
   try {
     const bed = await Bed.findById(req.params.id);
@@ -143,16 +125,10 @@ export const dischargeBed = async (req, res) => {
       error: err.message
     });
   }
-};
-
-// @desc    Create new bed
-// @route   POST /api/beds
-// @access  Private/Admin
+};
 export const createBed = async (req, res) => {
   try {
-    const { bedNumber, ward, ratePerDay, features } = req.body;
-    
-    // Validate required fields
+    const { bedNumber, ward, ratePerDay, features } = req.body;
     if (!bedNumber || !ward || !ratePerDay) {
       return res.status(400).json({
         success: false,
@@ -172,8 +148,7 @@ export const createBed = async (req, res) => {
       bedNumber,
       ward,
       ratePerDay,
-      features: features || []
-      // Removed createdBy since we're not using auth yet
+      features: features || []
     });
     
     res.status(201).json({

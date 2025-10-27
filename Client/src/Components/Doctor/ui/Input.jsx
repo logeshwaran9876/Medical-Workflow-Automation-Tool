@@ -1,4 +1,4 @@
-// src/components/doctor/ui/Input.jsx
+
 export default function Input({ name, value, onChange, type = 'text', placeholder, error, icon }) {
   return (
     <div className="space-y-1">

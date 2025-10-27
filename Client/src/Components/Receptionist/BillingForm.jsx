@@ -43,18 +43,14 @@ const BillingForm = () => {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        setLoading(true);
-
-        // Fetch patients and available beds
+        setLoading(true);
         const [patientsRes, bedsRes] = await Promise.all([
           axios.get(" http://localhost:5000/api/patients"),
           axios.get(" http://localhost:5000/api/beds"),
         ]);
 
         setPatients(patientsRes.data);
-        setBeds(bedsRes.data.data);
-
-        // If editing existing bill, fetch bill data
+        setBeds(bedsRes.data.data);
         if (id) {
           const billingRes = await axios.get(
             ` http://localhost:5000/api/billing/${id}`
@@ -147,12 +143,10 @@ const BillingForm = () => {
         dueDate: formData.dueDate || undefined,
       };
 
-      if (id) {
-        // Update existing bill
+      if (id) {
         await axios.put(` http://localhost:5000/api/billing/${id}`, payload);
         toast.success("Bill updated successfully");
-      } else {
-        // Create new bill
+      } else {
         await axios.post(" http://localhost:5000/api/billing", payload);
         toast.success("Bill created successfully");
       }
@@ -185,7 +179,7 @@ const BillingForm = () => {
         className="bg-white rounded-xl shadow-sm overflow-hidden p-6"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Patient Selection */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Patient *
@@ -208,7 +202,7 @@ const BillingForm = () => {
             </select>
           </div>
 
-          {/* Bed Selection */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Bed Assignment
@@ -230,7 +224,7 @@ const BillingForm = () => {
             </select>
           </div>
 
-          {/* Due Date */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Due Date
@@ -246,7 +240,7 @@ const BillingForm = () => {
             />
           </div>
 
-          {/* Status */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Status
@@ -266,11 +260,11 @@ const BillingForm = () => {
           </div>
         </div>
 
-        {/* Bill Items */}
+        {}
         <div className="mb-8">
           <h2 className="text-lg font-medium text-gray-700 mb-4">Bill Items</h2>
 
-          {/* Add Item Form */}
+          {}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-4 mb-4">
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -385,7 +379,7 @@ const BillingForm = () => {
             </div>
           </div>
 
-          {/* Items Table */}
+          {}
           {formData.items.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
@@ -450,7 +444,7 @@ const BillingForm = () => {
           )}
         </div>
 
-        {/* Discount and Summary */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -525,7 +519,7 @@ const BillingForm = () => {
           </div>
         </div>
 
-        {/* Form Actions */}
+        {}
         <div className="flex justify-end space-x-3">
           <button
             type="button"

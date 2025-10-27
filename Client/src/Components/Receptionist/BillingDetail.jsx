@@ -9,18 +9,14 @@ import {
   FaReceipt, FaHistory 
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-
-// Register fonts (optional)
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 Font.register({
   family: 'Helvetica',
   fonts: [
     { src: 'https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxP.ttf' }, // regular
     { src: 'https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc9.ttf', fontWeight: 'bold' }
   ]
-});
-
-// PDF Document Component
+});
 const InvoicePDF = ({ billing }) => {
   const styles = StyleSheet.create({
     page: {
@@ -434,7 +430,7 @@ const BillingDetail = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-        {/* Invoice Content */}
+        {}
         <div className="lg:col-span-2">
           <div className="bg-white rounded-xl shadow-sm overflow-hidden p-6">
             <div className="flex justify-between items-start mb-8">
@@ -475,7 +471,7 @@ const BillingDetail = () => {
               </div>
             </div>
 
-            {/* Invoice Items */}
+            {}
             <div className="mb-8">
               <h3 className="text-lg font-medium text-gray-700 mb-4">Invoice Items</h3>
               <div className="overflow-x-auto">
@@ -517,7 +513,7 @@ const BillingDetail = () => {
               </div>
             </div>
 
-            {/* Add Item Form (Edit Mode) */}
+            {}
             {editMode && (
               <div className="mb-8 p-4 border border-gray-200 rounded-lg">
                 <h3 className="text-lg font-medium text-gray-700 mb-4 flex items-center">
@@ -596,7 +592,7 @@ const BillingDetail = () => {
               </div>
             )}
 
-            {/* Invoice Summary */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
@@ -667,7 +663,7 @@ const BillingDetail = () => {
           </div>
         </div>
 
-        {/* Payment Section */}
+        {}
         <div>
           {billing.status !== 'paid' && billing.status !== 'cancelled' && (
             <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
@@ -722,7 +718,7 @@ const BillingDetail = () => {
             </div>
           )}
 
-          {/* Payment History */}
+          {}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             <div className="bg-indigo-600 p-4 text-white flex items-center">
               <FaHistory className="mr-2" />

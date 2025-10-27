@@ -8,21 +8,11 @@ import {
 } from '../Controllers/doctorsController.js';
 import { verifyToken, authorizeRoles } from '../middlewares/authMiddleware.js';
 
-const doctorRouter = express.Router();
-
-// 👤 Only admin can create new doctors
-doctorRouter.post('/', verifyToken, authorizeRoles('admin'), createDoctor);
-
-// 📋 View all doctors — allow admin, receptionist, or doctor
-doctorRouter.get('/', verifyToken, authorizeRoles('admin', 'receptionist', 'doctor'), getDoctors);
-
-// 🔍 Get single doctor by ID — allow admin, receptionist, doctor
-doctorRouter.get('/:id', verifyToken, authorizeRoles('admin', 'receptionist', 'doctor'), getDoctorById);
-
-// 🛠️ Update doctor — only admin
-doctorRouter.put('/:id', verifyToken, authorizeRoles('admin'), updateDoctor);
-
-// ❌ Delete doctor — only admin
+const doctorRouter = express.Router();
+doctorRouter.post('/', verifyToken, authorizeRoles('admin'), createDoctor);
+doctorRouter.get('/', verifyToken, authorizeRoles('admin', 'receptionist', 'doctor'), getDoctors);
+doctorRouter.get('/:id', verifyToken, authorizeRoles('admin', 'receptionist', 'doctor'), getDoctorById);
+doctorRouter.put('/:id', verifyToken, authorizeRoles('admin'), updateDoctor);
 doctorRouter.delete('/:id', verifyToken, authorizeRoles('admin'), deleteDoctor);
 
 doctorRouter.get('/getallDoct', verifyToken, authorizeRoles('admin',"doctor"), getAllDoctorwithCount);

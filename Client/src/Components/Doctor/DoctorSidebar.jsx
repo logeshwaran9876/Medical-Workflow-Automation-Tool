@@ -1,4 +1,4 @@
-// src/components/doctor/DoctorSidebar.jsx
+
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiCalendar, FiUser, FiFileText } from "react-icons/fi";
 import { RiChatFollowUpLine } from "react-icons/ri";
@@ -26,30 +26,22 @@ const navItems = [
 export default function DoctorSidebar() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear all authentication data
+  const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
-    localStorage.removeItem("role");
-    
-    // Show logout success message
-    toast.success("You have been logged out successfully");
-    
-    // Redirect to login page
-    navigate("/login");
-    
-    // Optional: Force full page refresh to reset all application state
-    // window.location.reload();
+    localStorage.removeItem("role");
+    toast.success("You have been logged out successfully");
+    navigate("/login");
   };
 
   return (
     <aside className="w-72 bg-white border-r border-teal-100 flex flex-col shadow-lg">
-      {/* Logo */}
+      {}
       <div className="p-5 border-b border-teal-100">
         <DoctorLogo />
       </div>
 
-      {/* Navigation */}
+      {}
       <nav className="flex-1 overflow-y-auto p-4">
         <ul className="space-y-2">
           {navItems.map((item) => (
@@ -73,7 +65,7 @@ export default function DoctorSidebar() {
         </ul>
       </nav>
 
-      {/* Logout Button */}
+      {}
       <div className="p-4 border-t border-teal-100">
         <button
           className="flex items-center w-full p-3 text-red-500 hover:bg-red-50 rounded-lg transition-colors group"

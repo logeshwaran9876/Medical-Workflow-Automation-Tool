@@ -35,9 +35,7 @@ const BillingDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
-        
-        // Fetch billings
+        setLoading(true);
         const params = new URLSearchParams();
         if (filters.status) params.append('status', filters.status);
         if (filters.patient) params.append('patientId', filters.patient);
@@ -47,9 +45,7 @@ const BillingDashboard = () => {
         const billingRes = await axios.get(`http://localhost:5000/api/billing?${params.toString()}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
-        setBillings(billingRes.data.data);
-        
-        // Fetch stats
+        setBillings(billingRes.data.data);
         const statsRes = await axios.get('http://localhost:5000/api/billing/summary', {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -93,9 +89,7 @@ const BillingDashboard = () => {
           billing._id?.toLowerCase().includes(searchLower)
         );
       })
-    : [];
-
-  // Check if bill is fully paid (accounting for floating point precision)
+    : [];
   const isBillPaid = (billing) => {
     return Math.abs(billing.paidAmount - billing.totalAmount) < 0.01;
   };
@@ -121,7 +115,7 @@ const BillingDashboard = () => {
         </button>
       </div>
 
-      {/* Stats Cards */}
+      {}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
@@ -166,7 +160,7 @@ const BillingDashboard = () => {
         </div>
       )}
 
-      {/* Filters */}
+      {}
       <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="relative flex-1">
@@ -219,7 +213,7 @@ const BillingDashboard = () => {
         )}
       </div>
 
-      {/* Billing List */}
+      {}
       <div className="bg-white rounded-xl shadow-sm overflow-hidden">
         <div className="grid grid-cols-12 bg-gray-50 p-4 font-medium text-gray-700 border-b">
           <div className="col-span-3 md:col-span-2">Invoice #</div>

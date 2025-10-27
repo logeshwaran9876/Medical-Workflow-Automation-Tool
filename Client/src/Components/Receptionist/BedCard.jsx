@@ -62,7 +62,7 @@ const BedCard = ({ bed, onAssign, onDischarge }) => {
         statusColors[bed.status]?.border
       } transition-all duration-200`}
     >
-      {/* Header Section */}
+      {}
       <div
         className={`p-4 ${
           statusColors[bed.status]?.bg
@@ -101,9 +101,9 @@ const BedCard = ({ bed, onAssign, onDischarge }) => {
         </div>
       </div>
 
-      {/* Main Content */}
+      {}
       <div className="p-4">
-        {/* Patient Info (if occupied) */}
+        {}
         {bed.status === "occupied" && bed.patient && (
           <>
             <div className="mb-4">
@@ -135,7 +135,7 @@ const BedCard = ({ bed, onAssign, onDischarge }) => {
               </div>
             </div>
 
-            {/* Admission Dates */}
+            {}
             <div className="mb-4">
               <h4 className="font-medium text-gray-700 mb-2 flex items-center">
                 <FiCalendar className="mr-2" />
@@ -180,7 +180,7 @@ const BedCard = ({ bed, onAssign, onDischarge }) => {
           </>
         )}
 
-        {/* Bed Features */}
+        {}
         {bed.features?.length > 0 && (
           <div className="mb-4">
             <h4 className="font-medium text-gray-700 mb-2 flex items-center">
@@ -203,13 +203,13 @@ const BedCard = ({ bed, onAssign, onDischarge }) => {
           </div>
         )}
 
-        {/* Meta Info */}
+        {}
         <div className="text-xs text-gray-500 mt-4 flex justify-between items-center">
           <div>Created: {new Date(bed.createdAt).toLocaleDateString()}</div>
           <div>Updated: {new Date(bed.updatedAt).toLocaleDateString()}</div>
         </div>
 
-        {/* Action Buttons */}
+        {}
         <div className="mt-4">
           {bed.status === "occupied" ? (
             <button

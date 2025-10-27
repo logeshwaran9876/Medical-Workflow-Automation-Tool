@@ -1,6 +1,4 @@
-import { User,Appointment } from "../models/Models.js";
-
-// CREATE DOCTOR (ensure role is set to 'doctor')
+import { User,Appointment } from "../models/Models.js";
 export const createDoctor = async (req, res) => {
   try {
     const doctorData = { ...req.body, role: "doctor" }; // force role
@@ -39,9 +37,7 @@ export const getDoctors = async (req, res) => {
     console.error("Error fetching doctors with appointment counts:", err); 
     res.status(500).json({ message: "Failed to fetch doctors: " + err.message });
   }
-};
-
-// READ one doctor by ID (make sure the user is a doctor)
+};
 export const getDoctorById = async (req, res) => {
   try {
     const doctor = await User.findOne({ _id: req.params.id, role: "doctor" });
@@ -50,9 +46,7 @@ export const getDoctorById = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
-
-// UPDATE a doctor
+};
 export const updateDoctor = async (req, res) => {
   try {
     const updated = await User.findOneAndUpdate(
@@ -65,9 +59,7 @@ export const updateDoctor = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
-
-// DELETE a doctor
+};
 export const deleteDoctor = async (req, res) => {
   try {
     const deleted = await User.findOneAndDelete({

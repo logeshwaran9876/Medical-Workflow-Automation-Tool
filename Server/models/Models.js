@@ -37,9 +37,7 @@ const AppointmentSchema = new mongoose.Schema({
     enum: ["scheduled", "completed", "cancelled"],
     default: "scheduled",
   },
-}, { timestamps: true });
-
-// 💊 Prescription Schema
+}, { timestamps: true });
 const PrescriptionSchema = new mongoose.Schema({
   appointment: { type: mongoose.Schema.Types.ObjectId, ref: "Appointment" },
   meds: [
@@ -191,9 +189,7 @@ billingSchema.pre('save', function(next) {
   }
   
   next();
-});
-
-// Static methods
+});
 billingSchema.statics.getFinancialSummary = async function() {
   const summary = await this.aggregate([
     {

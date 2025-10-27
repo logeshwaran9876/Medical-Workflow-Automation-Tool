@@ -1,8 +1,6 @@
-// server/controllers/appointmentController.js
-import mongoose from 'mongoose';
-import { Appointment ,Patient ,User}from '../../models/Models.js';
 
-// Helper function to generate time slots
+import mongoose from 'mongoose';
+import { Appointment ,Patient ,User}from '../../models/Models.js';
 const generateTimeSlots = (startHour, endHour, intervalMinutes) => {
     const slots = [];
     for (let h = startHour; h < endHour; h++) {
@@ -13,9 +11,7 @@ const generateTimeSlots = (startHour, endHour, intervalMinutes) => {
         }
     }
     return slots;
-};
-
-// GET available time slots for a specific doctor on a specific date
+};
 export const getAvailableSlots = async (req, res) => {
     try {
         const { doctorId, date } = req.params;
@@ -57,9 +53,7 @@ export const getAvailableSlots = async (req, res) => {
         console.error('Error fetching available slots:', error);
         res.status(500).json({ message: 'Server error while fetching available slots.' });
     }
-};
-
-// POST a new appointment
+};
 export const createAppointment = async (req, res) => {
     const { doctor, patient, date, time, notes } = req.body;
 
@@ -106,9 +100,7 @@ export const createAppointment = async (req, res) => {
         }
         res.status(500).json({ message: 'Server error while scheduling appointment.' });
     }
-};
-
-// GET all appointments
+};
 export const getAllAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.find({})
@@ -119,9 +111,7 @@ export const getAllAppointments = async (req, res) => {
         console.error('Error fetching appointments:', error);
         res.status(500).json({ message: 'Server error while fetching appointments.' });
     }
-};
-
-// GET appointment by ID
+};
 export const getAppointmentById = async (req, res) => {
     try {
         const appointment = await Appointment.findById(req.params.id)
@@ -135,9 +125,7 @@ export const getAppointmentById = async (req, res) => {
         console.error('Error fetching appointment:', error);
         res.status(500).json({ message: 'Server error.' });
     }
-};
-
-// PUT update appointment
+};
 export const updateAppointment = async (req, res) => {
     const { date, time, status, notes } = req.body;
     try {
@@ -174,9 +162,7 @@ export const updateAppointment = async (req, res) => {
         console.error('Error updating appointment:', error);
         res.status(500).json({ message: 'Server error.' });
     }
-};
-
-// DELETE appointment
+};
 export const deleteAppointment = async (req, res) => {
     try {
         const appointment = await Appointment.findByIdAndDelete(req.params.id);

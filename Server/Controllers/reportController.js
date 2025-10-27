@@ -1,16 +1,12 @@
 import { Patient, User, Appointment } from "../models/Models.js";
 import PDFDocument from 'pdfkit';
 import blobStream from 'blob-stream';
-import moment from 'moment';
-
-// Helper function to draw tables in PDF
+import moment from 'moment';
 function drawTable(doc, table) {
   const startX = 50;
   let startY = doc.y;
   const rowHeight = 20;
-  const colPadding = 10;
-  
-  // Calculate column widths
+  const colPadding = 10;
   doc.font('Helvetica');
   const colWidths = table.headers.map((header, colIndex) => {
     const headerWidth = doc.widthOfString(header) + colPadding * 2;
@@ -20,9 +16,7 @@ function drawTable(doc, table) {
     return Math.max(headerWidth, ...contentWidths);
   });
 
-  const tableWidth = colWidths.reduce((sum, width) => sum + width, 0);
-  
-  // Draw headers
+  const tableWidth = colWidths.reduce((sum, width) => sum + width, 0);
   doc.font('Helvetica-Bold');
   let x = startX;
   table.headers.forEach((header, i) => {
@@ -31,14 +25,10 @@ function drawTable(doc, table) {
       align: 'left'
     });
     x += colWidths[i];
-  });
-  
-  // Draw horizontal line under headers
+  });
   doc.moveTo(startX, startY + rowHeight)
      .lineTo(startX + tableWidth, startY + rowHeight)
-     .stroke();
-  
-  // Draw rows
+     .stroke();
   doc.font('Helvetica');
   table.rows.forEach((row) => {
     startY += rowHeight;
@@ -48,17 +38,13 @@ function drawTable(doc, table) {
       doc.text(String(cell), x + colPadding, startY, {
         width: colWidths[colIndex] - colPadding * 2,
         align: 'left'
-      });
-      
-      // Draw vertical line
+      });
       doc.moveTo(x + colWidths[colIndex], startY - rowHeight)
          .lineTo(x + colWidths[colIndex], startY + rowHeight)
          .stroke();
       
       x += colWidths[colIndex];
-    });
-    
-    // Draw horizontal line
+    });
     doc.moveTo(startX, startY + rowHeight)
        .lineTo(startX + tableWidth, startY + rowHeight)
        .stroke();
@@ -80,22 +66,14 @@ export const generateDoctorReport = async (req, res) => {
       };
     }
     
-    const doctors = await User.find(query).sort({ createdAt: -1 }).lean();
-
-    // Create PDF document
-    const doc = new PDFDocument();
-    
-    // Set response headers
+    const doctors = await User.find(query).sort({ createdAt: -1 }).lean();
+    const doc = new PDFDocument();
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition', 
       `attachment; filename=Doctor_Report_${moment().format('YYYY-MM-DD')}.pdf`
-    );
-    
-    // Pipe the PDF directly to the response
-    doc.pipe(res);
-    
-    // Add content to PDF
+    );
+    doc.pipe(res);
     doc.fontSize(20).text('Doctor Report', { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text(`Generated on: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
@@ -104,9 +82,7 @@ export const generateDoctorReport = async (req, res) => {
       doc.text(`Date Range: ${moment(dateRange.start).format('MM/DD/YYYY')} - ${moment(dateRange.end).format('MM/DD/YYYY')}`);
     }
     
-    doc.moveDown(2);
-    
-    // Add doctor table
+    doc.moveDown(2);
     const table = {
       headers: ['Name', 'Specialization', 'Phone', 'Email', 'Status'],
       rows: doctors.map(d => [
@@ -118,9 +94,7 @@ export const generateDoctorReport = async (req, res) => {
       ])
     };
     
-    drawTable(doc, table);
-    
-    // Finalize the PDF
+    drawTable(doc, table);
     doc.end();
     
   } catch (error) {
@@ -132,9 +106,7 @@ export const generateDoctorReport = async (req, res) => {
 
 export const generatePatientReport = async (req, res) => {
   try {
-    const { dateRange } = req.body;
-    
-    // Query patients
+    const { dateRange } = req.body;
     const query = {};
     if (dateRange?.start && dateRange?.end) {
       query.createdAt = {
@@ -143,22 +115,14 @@ export const generatePatientReport = async (req, res) => {
       };
     }
     
-    const patients = await Patient.find(query).sort({ createdAt: -1 }).lean();
-
-    // Create PDF document
-    const doc = new PDFDocument();
-    
-    // Set response headers
+    const patients = await Patient.find(query).sort({ createdAt: -1 }).lean();
+    const doc = new PDFDocument();
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition', 
       `attachment; filename=Patient_Report_${moment().format('YYYY-MM-DD')}.pdf`
-    );
-    
-    // Pipe the PDF directly to the response
-    doc.pipe(res);
-    
-    // Add content to PDF
+    );
+    doc.pipe(res);
     doc.fontSize(20).text('Patient Report', { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text(`Generated on: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
@@ -167,9 +131,7 @@ export const generatePatientReport = async (req, res) => {
       doc.text(`Date Range: ${moment(dateRange.start).format('MM/DD/YYYY')} - ${moment(dateRange.end).format('MM/DD/YYYY')}`);
     }
     
-    doc.moveDown(2);
-    
-    // Add patient table
+    doc.moveDown(2);
     const table = {
       headers: ['Name', 'Age', 'Gender', 'Contact', 'Status'],
       rows: patients.map(p => [
@@ -181,9 +143,7 @@ export const generatePatientReport = async (req, res) => {
       ])
     };
     
-    drawTable(doc, table);
-    
-    // Finalize the PDF
+    drawTable(doc, table);
     doc.end();
     
   } catch (error) {
@@ -208,22 +168,14 @@ export const generateAppointmentReport = async (req, res) => {
       .populate('patient', 'name contact')
       .populate('doctor', 'name specialization phone')
       .sort({ date: -1 })
-      .lean();
-
-    // Create PDF document
-    const doc = new PDFDocument();
-    
-    // Set response headers
+      .lean();
+    const doc = new PDFDocument();
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader(
       'Content-Disposition', 
       `attachment; filename=Appointment_Report_${moment().format('YYYY-MM-DD')}.pdf`
-    );
-    
-    // Pipe the PDF directly to the response
-    doc.pipe(res);
-    
-    // Add content to PDF
+    );
+    doc.pipe(res);
     doc.fontSize(20).text('Appointment Report', { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text(`Generated on: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`);
@@ -232,9 +184,7 @@ export const generateAppointmentReport = async (req, res) => {
       doc.text(`Date Range: ${moment(dateRange.start).format('MM/DD/YYYY')} - ${moment(dateRange.end).format('MM/DD/YYYY')}`);
     }
     
-    doc.moveDown(2);
-    
-    // Add appointment table
+    doc.moveDown(2);
     const table = {
       headers: ['Date', 'Patient', 'Doctor', 'Specialization', 'Status'],
       rows: appointments.map(a => [
@@ -246,9 +196,7 @@ export const generateAppointmentReport = async (req, res) => {
       ])
     };
     
-    drawTable(doc, table);
-    
-    // Finalize the PDF
+    drawTable(doc, table);
     doc.end();
     
   } catch (error) {

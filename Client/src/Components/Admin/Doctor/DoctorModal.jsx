@@ -1,4 +1,4 @@
-// components/DoctorModal.js
+
 import { useState, useEffect } from 'react';
 import {
   FiX, FiUser, FiMail, FiPhone,
@@ -84,9 +84,7 @@ export default function DoctorModal({
 
       if (!response.ok) {
         throw new Error(responseData.message || `Failed to ${isEditMode ? 'update' : 'create'} doctor`);
-      }
-
-      // Ensure we have the doctor data in the response
+      }
       const savedDoctor = responseData.doctor || responseData.data || responseData;
       if (!savedDoctor?.name) {
         throw new Error("Invalid doctor data received from server");
@@ -120,7 +118,7 @@ export default function DoctorModal({
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          {/* Name Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Name
@@ -136,7 +134,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Email Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Email
@@ -153,7 +151,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Phone Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Phone
@@ -169,7 +167,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Specialization Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Specialization
@@ -187,7 +185,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Schedule Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Schedule
@@ -202,7 +200,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Status Field */}
+          {}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Status
@@ -216,7 +214,7 @@ export default function DoctorModal({
             />
           </div>
 
-          {/* Action Buttons */}
+          {}
           <div className="flex justify-end space-x-3 pt-4">
             <Button
               type="button"

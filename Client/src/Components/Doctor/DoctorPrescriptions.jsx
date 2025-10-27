@@ -17,9 +17,7 @@ import Modal from "./ui/Modal";
 import Button from "./ui/Button";
 import SearchBar from "./ui/SearchBar";
 import LoadingSpinner from "./ui/LoadingSpinner";
-import { toast } from "react-toastify";
-
-// Custom Select Component (as provided, ensure this is in a separate file if used elsewhere)
+import { toast } from "react-toastify";
 const Select = ({
   label,
   name,
@@ -98,18 +96,12 @@ export default function DoctorPrescriptions() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const token = localStorage.getItem("authToken");
-
-  // Status badge styles for appointments
+  const token = localStorage.getItem("authToken");
   const statusBadgeStyles = {
     scheduled: "bg-yellow-100 text-yellow-800 border-yellow-200",
     completed: "bg-green-100 text-green-700 border-green-200",
     cancelled: "bg-red-100 text-red-600 border-red-200",
-  };
-
-  // --- Data Fetching ---
-
-  // Fetches ALL prescriptions for the CURRENT doctor
+  };
   const fetchPrescriptions = useCallback(async () => {
     if (!doctorId) return; // Prevent fetching if doctorId is null
     try {
@@ -130,9 +122,7 @@ export default function DoctorPrescriptions() {
     } finally {
       setIsLoading(false);
     }
-  }, [doctorId, token]);
-
-  // Fetches ONLY 'completed' appointments for the CURRENT doctor
+  }, [doctorId, token]);
   const fetchAppointments = useCallback(async () => {
     if (!doctorId) return; // Prevent fetching if doctorId is null
     try {
@@ -143,8 +133,7 @@ export default function DoctorPrescriptions() {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
-      // Filter for 'completed' appointments
+      );
       const completedAppointments = data.filter(
         (appt) => appt.status === "completed"
       );
@@ -154,17 +143,13 @@ export default function DoctorPrescriptions() {
       console.error("Error fetching appointments:", err);
       setAppointments([]);
     }
-  }, [doctorId, token]);
-
-  // Initial data load on component mount
+  }, [doctorId, token]);
   useEffect(() => {
     if (doctorId) { // Only fetch if doctorId is available
       fetchPrescriptions();
       fetchAppointments();
     }
-  }, [fetchPrescriptions, fetchAppointments, doctorId]);
-
-  // --- Form Handling ---
+  }, [fetchPrescriptions, fetchAppointments, doctorId]);
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -200,9 +185,7 @@ export default function DoctorPrescriptions() {
       toast.error("Please fill in all medication fields or remove empty ones.");
       setIsSubmitting(false);
       return;
-    }
-
-    // When creating, appointment must be selected
+    }
     if (!selectedPrescription && !formData.appointment) {
       toast.error("Please select an appointment for the prescription.");
       setIsSubmitting(false);
@@ -210,8 +193,7 @@ export default function DoctorPrescriptions() {
     }
 
     try {
-      if (selectedPrescription) {
-        // Update existing prescription
+      if (selectedPrescription) {
         await axios.put(
           `${API_BASE_URL}/prescriptions/${selectedPrescription._id}`,
           {
@@ -225,8 +207,7 @@ export default function DoctorPrescriptions() {
           }
         );
         toast.success("Prescription updated successfully!");
-      } else {
-        // Create new prescription
+      } else {
         await axios.post(
           `${API_BASE_URL}/prescriptions/${formData.appointment}`, // Ensure endpoint uses appointment ID
           {
@@ -274,9 +255,7 @@ export default function DoctorPrescriptions() {
       );
       console.error("Error deleting prescription:", err);
     }
-  };
-
-  // --- Modal Management ---
+  };
 
   const handleOpenCreateModal = () => {
     setSelectedPrescription(null);
@@ -302,9 +281,7 @@ export default function DoctorPrescriptions() {
     setIsModalOpen(false);
     setFormData(emptyForm);
     setSelectedPrescription(null);
-  };
-
-  // --- Filtering and Display ---
+  };
 
   const filteredPrescriptions = prescriptions.filter((p) => {
     const patientName = p.appointment?.patient?.name?.toLowerCase() || "";
@@ -323,9 +300,7 @@ export default function DoctorPrescriptions() {
           med.frequency?.toLowerCase().includes(searchTermLower)
       )
     );
-  });
-
-  // Prepare options for the Select component for appointments
+  });
   const appointmentOptions = appointments.map((appt) => ({
     value: appt._id,
     label: `${appt.patient?.name || "Unknown Patient"} - ${new Date(
@@ -365,7 +340,7 @@ export default function DoctorPrescriptions() {
         </div>
       </div>
 
-      {/* Prescriptions Table */}
+      {}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar max-h-[600px]">
           <table className="min-w-full text-sm divide-y divide-gray-200">
@@ -403,7 +378,7 @@ export default function DoctorPrescriptions() {
                       transition={{ delay: index * 0.05, duration: 0.3 }}
                       className="group hover:bg-teal-50 transition-all duration-300 rounded-xl"
                     >
-                      {/* Appointment Details Column (Date, Time, Status) */}
+                      {}
                       <td className="px-6 py-4 text-sm whitespace-nowrap">
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-1 text-gray-900 font-semibold">
@@ -433,7 +408,7 @@ export default function DoctorPrescriptions() {
                         </div>
                       </td>
 
-                      {/* Patient Name */}
+                      {}
                       <td className="px-6 py-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           <FiUser className="text-teal-500" />
@@ -441,7 +416,7 @@ export default function DoctorPrescriptions() {
                         </div>
                       </td>
 
-                      {/* Doctor Name */}
+                      {}
                       <td className="px-6 py-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           <FiUser className="text-blue-500" />
@@ -449,7 +424,7 @@ export default function DoctorPrescriptions() {
                         </div>
                       </td>
 
-                      {/* Medications */}
+                      {}
                       <td className="px-6 py-4 text-sm text-gray-800">
                         {p.meds?.length ? (
                           <ul className="space-y-1">
@@ -469,7 +444,7 @@ export default function DoctorPrescriptions() {
                         )}
                       </td>
 
-                      {/* Notes */}
+                      {}
                       <td className="px-6 py-4 text-sm text-gray-700 max-w-xs truncate">
                         {p.notes ? (
                           <span title={p.notes}>{p.notes}</span>
@@ -478,7 +453,7 @@ export default function DoctorPrescriptions() {
                         )}
                       </td>
 
-                      {/* Actions */}
+                      {}
                       <td className="px-6 py-4 flex gap-3 items-center">
                         <motion.button
                           whileTap={{ scale: 0.9 }}
@@ -515,7 +490,7 @@ export default function DoctorPrescriptions() {
         </div>
       </div>
 
-      {/* Modal Form */}
+      {}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -527,7 +502,7 @@ export default function DoctorPrescriptions() {
         className="rounded-xl shadow-2xl border border-gray-100"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Appointment select - Now using the custom Select component */}
+          {}
           <Select
             label="Appointment"
             name="appointment"
@@ -549,7 +524,7 @@ export default function DoctorPrescriptions() {
             </p>
           )}
 
-          {/* Notes input */}
+          {}
           <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
             <label className="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
               <FiFileText className="text-teal-500" /> Prescription Notes
@@ -564,7 +539,7 @@ export default function DoctorPrescriptions() {
             />
           </div>
 
-          {/* Meds inputs */}
+          {}
           <div className="space-y-4 p-5 border border-gray-100 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100/50">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-700 flex items-center gap-2">
@@ -653,7 +628,7 @@ export default function DoctorPrescriptions() {
             </button>
           </div>
 
-          {/* Action buttons */}
+          {}
           <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
             <button
               type="button"

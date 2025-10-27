@@ -2,9 +2,7 @@ import { Appointment, Patient, Bill, Beds } from "../../models/Models.js";
 import moment from "moment";
 
 export const generateReportData = async (req, res) => {
-  const { type, startDate, endDate, status } = req.query;
-
-  // Validate required parameters
+  const { type, startDate, endDate, status } = req.query;
   if (!type || !startDate || !endDate) {
     return res.status(400).json({
       success: false,
@@ -14,8 +12,7 @@ export const generateReportData = async (req, res) => {
     });
   }
 
-  try {
-    // Validate dates
+  try {
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -23,18 +20,14 @@ export const generateReportData = async (req, res) => {
       throw new Error("Invalid start date format (use YYYY-MM-DD)");
     if (isNaN(end.getTime()))
       throw new Error("Invalid end date format (use YYYY-MM-DD)");
-    if (start > end) throw new Error("Start date must be before end date");
-
-    // Base query with date filter
+    if (start > end) throw new Error("Start date must be before end date");
     const dateField = type === "billing" ? "billingDate" : "createdAt";
     const query = {
       [dateField]: {
         $gte: moment(start).startOf("day").toDate(),
         $lte: moment(end).endOf("day").toDate(),
       },
-    };
-
-    // Apply status filter if provided
+    };
     if (status && status !== "all") {
       query.status = status;
     }

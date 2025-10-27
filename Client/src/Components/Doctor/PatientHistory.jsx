@@ -1,4 +1,4 @@
-// 💅 Styled PatientManager with Doctor Dashboard Theme
+
 import { useState, useEffect } from 'react';
 import {
   FiEdit, FiTrash2, FiUser, FiPhone,

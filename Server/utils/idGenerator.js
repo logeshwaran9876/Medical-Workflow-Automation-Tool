@@ -1,42 +1,30 @@
-// utils/idGenerator.js
+
 import { User } from "../models/Models.js";
 
-/**
- * Generates a unique doctor ID with pattern: DOC-YYYY-XXXX
- * Where XXXX is an auto-incremented number
- */
+
 export const generateDoctorId = async () => {
-  try {
-    // Get the current year
-    const currentYear = new Date().getFullYear();
-    
-    // Find the highest existing doctor ID for this year
+  try {
+    const currentYear = new Date().getFullYear();
     const lastDoctor = await User.findOne({ role: 'doctor' })
       .sort({ createdAt: -1 })
       .select('doctorId');
     
     let sequenceNumber = 1;
     
-    if (lastDoctor?.doctorId) {
-      // Extract sequence number from existing ID
+    if (lastDoctor?.doctorId) {
       const idParts = lastDoctor.doctorId.split('-');
       if (idParts.length === 3 && idParts[1] === currentYear.toString()) {
         sequenceNumber = parseInt(idParts[2]) + 1;
       }
-    }
-    
-    // Format with leading zeros (DOC-2023-0001)
+    }
     return `DOC-${currentYear}-${sequenceNumber.toString().padStart(4, '0')}`;
   } catch (error) {
-    console.error('Failed to generate doctor ID:', error);
-    // Fallback ID with timestamp
+    console.error('Failed to generate doctor ID:', error);
     return `DOC-${Date.now().toString().slice(-6)}`;
   }
 };
 
-/**
- * Generates a staff ID based on role (pattern: [ROLE]-YYYY-XXXX)
- */
+
 export const generateStaffId = async (role) => {
   const rolePrefix = {
     doctor: 'DOC',
@@ -68,9 +56,7 @@ export const generateStaffId = async (role) => {
   }
 };
 
-/**
- * Generates a patient ID with pattern: PT-YYYY-XXXXX
- */
+
 export const generatePatientId = async () => {
   try {
     const currentYear = new Date().getFullYear();
@@ -86,17 +72,13 @@ export const generatePatientId = async () => {
       if (idParts.length === 3 && idParts[1] === currentYear.toString()) {
         sequenceNumber = parseInt(idParts[2]) + 1;
       }
-    }
-    
-    // 5 digits for patient IDs
+    }
     return `PT-${currentYear}-${sequenceNumber.toString().padStart(5, '0')}`;
   } catch (error) {
     console.error('Failed to generate patient ID:', error);
     return `PT-${Date.now().toString().slice(-8)}`;
   }
-};
-
-// Unified ID generator that routes based on role
+};
 export const generateId = async (role) => {
   switch (role?.toLowerCase()) {
     case 'doctor':

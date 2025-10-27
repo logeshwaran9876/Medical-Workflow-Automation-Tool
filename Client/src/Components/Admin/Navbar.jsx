@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const { darkMode, toggleDarkMode } = useTheme();
-  const [user, setUser] = useState(null);
-
-  // Load user data on component mount
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (userData) {

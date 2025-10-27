@@ -1,4 +1,4 @@
-// src/pages/doctor/Dashboard.jsx
+
 import { useState, useEffect } from 'react';
 import DoctorStatsCard from './DoctorStatsCard';
 import { FaCalendarCheck, FaUserInjured, FaNotesMedical, FaClock } from 'react-icons/fa';
@@ -36,11 +36,9 @@ export default function DoctorDashboard() {
     waiting: 0
   });
 
-  useEffect(() => {
-    // Fetch doctor stats from API
+  useEffect(() => {
     const fetchStats = async () => {
-      try {
-        // Replace with actual API call
+      try {
         const response = await fetch('/api/doctor/stats');
         const data = await response.json();
         setStats(data);

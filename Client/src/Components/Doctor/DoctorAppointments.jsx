@@ -21,9 +21,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Import datepicker styles
 
-const API_BASE_URL = "http://localhost:5000/api";
-
-// --- START: UPDATED COLOR PALETTE ---
+const API_BASE_URL = "http://localhost:5000/api";
 const statusColors = {
   scheduled: "bg-blue-50 text-blue-700 ring-blue-600/20",
   completed: "bg-green-50 text-green-700 ring-green-600/20",
@@ -36,10 +34,7 @@ const statusBadgeStyles = {
   completed: "border-green-300 bg-green-100 text-green-800",
   cancelled: "border-red-300 bg-red-100 text-red-800",
   "no-show": "border-gray-300 bg-gray-100 text-gray-800",
-};
-// --- END: UPDATED COLOR PALETTE ---
-
-// Modal Component
+};
 const Modal = ({ isOpen, onClose, children, title }) => {
   useEffect(() => {
     if (isOpen) {
@@ -89,9 +84,7 @@ const Modal = ({ isOpen, onClose, children, title }) => {
       </AnimatePresence>
     </>
   );
-};
-
-// Input Component (no changes needed, already well-styled)
+};
 const Input = ({
   label,
   name,
@@ -134,9 +127,7 @@ const Input = ({
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Select Component (no changes needed, already well-styled)
+);
 const Select = ({
   label,
   name,
@@ -195,9 +186,7 @@ const Select = ({
     </div>
     {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
   </div>
-);
-
-// Button Component (no changes needed, already well-styled)
+);
 const Button = ({
   children,
   variant = "primary",
@@ -250,9 +239,7 @@ const Button = ({
       )}
     </button>
   );
-};
-
-// Loading Spinner Component (no changes needed)
+};
 const LoadingSpinner = ({ fullPage = false }) => (
   <div
     className={`flex items-center justify-center ${fullPage ? "h-screen" : ""}`}
@@ -296,8 +283,7 @@ const AppointmentsTable = ({
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
 
-  const filteredAppointments = appointments.filter((appointment) => {
-    // Filter by search term
+  const filteredAppointments = appointments.filter((appointment) => {
     const matchesSearch =
       searchTerm === "" ||
       (appointment.patient?.name &&
@@ -309,9 +295,7 @@ const AppointmentsTable = ({
           .toLowerCase()
           .includes(searchTerm.toLowerCase())) ||
       (appointment.reason &&
-        appointment.reason.toLowerCase().includes(searchTerm.toLowerCase()));
-
-    // Filter by other filters
+        appointment.reason.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesStatus =
       filters.status === "" || appointment.status === filters.status;
     const matchesDoctor =
@@ -337,9 +321,7 @@ const AppointmentsTable = ({
       matchesDateFrom &&
       matchesDateTo
     );
-  });
-
-  // Get unique doctors and patients for filter dropdowns
+  });
   const uniqueDoctors = [
     ...new Set(
       appointments
@@ -385,10 +367,10 @@ const AppointmentsTable = ({
         </div>
       </div>
 
-      {/* Filter Section */}
+      {}
       <div className="rounded-2xl overflow-x-auto border border-blue-100 shadow-md bg-white p-4">
         {" "}
-        {/* Adjusted border and removed inner border-b */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -477,13 +459,13 @@ const AppointmentsTable = ({
         </div>
       </div>
 
-      {/* Table Section */}
+      {}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
         <div className=" overflow-x-auto custom-scrollbar max-h-[600px]">
           <table className="min-w-full text-sm divide-y divide-gray-200">
             <thead className="bg-gray-50 sticky top-0 z-10">
               {" "}
-              {/* Make header sticky */}
+              {}
               <tr>
                 <th className="px-6 py-3 text-left font-medium text-gray-500 uppercase tracking-wider">
                   Appointment Details
@@ -519,7 +501,7 @@ const AppointmentsTable = ({
                       transition={{ delay: index * 0.05, duration: 0.3 }}
                       className="group hover:bg-blue-50 transition-all duration-300" // Changed hover color to blue
                     >
-                      {/* Appointment Details Column (Date, Time, Status) */}
+                      {}
                       <td className="px-6 py-4 text-sm whitespace-nowrap">
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-1 text-gray-900 font-semibold">
@@ -542,16 +524,16 @@ const AppointmentsTable = ({
                         </div>
                       </td>
 
-                      {/* Patient Name */}
+                      {}
                       <td className="px-6 py-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
                         <div className="flex items-center gap-2">
                           <FiUser className="text-blue-500" />{" "}
-                          {/* Changed icon color to blue */}
+                          {}
                           {appointment.patient?.name || "Unknown Patient"}
                         </div>
                       </td>
 
-                      {/* Doctor Name (conditionally rendered) */}
+                      {}
                       {!isDoctorView && (
                         <td className="px-6 py-4 text-sm font-semibold text-gray-900 whitespace-nowrap">
                           <div className="flex items-center gap-2">
@@ -561,7 +543,7 @@ const AppointmentsTable = ({
                         </td>
                       )}
 
-                      {/* Department */}
+                      {}
                       <td className="px-6 py-4 text-sm text-gray-800">
                         {appointment.department || (
                           <span className="italic text-gray-400">
@@ -570,7 +552,7 @@ const AppointmentsTable = ({
                         )}
                       </td>
 
-                      {/* Reason */}
+                      {}
                       <td className="px-6 py-4 text-sm text-gray-700 max-w-xs truncate">
                         {appointment.reason ? (
                           <span title={appointment.reason}>
@@ -583,7 +565,7 @@ const AppointmentsTable = ({
                         )}
                       </td>
 
-                      {/* Actions */}
+                      {}
                       <td className="px-6 py-4 flex gap-3 items-center">
                         <motion.button
                           whileTap={{ scale: 0.9 }}
@@ -664,9 +646,7 @@ const AppointmentModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingData, setIsFetchingData] = useState(false);
 
-  const token = localStorage.getItem("authToken");
-
-  // Generate time slots from 9 AM to 5 PM every 30 minutes
+  const token = localStorage.getItem("authToken");
   const timeSlots = [];
   for (let hour = 9; hour <= 17; hour++) {
     timeSlots.push(`${hour}:00`, `${hour}:30`);
@@ -676,18 +656,14 @@ const AppointmentModal = ({
     if (isOpen) {
       const fetchData = async () => {
         setIsFetchingData(true);
-        try {
-          // Fetch doctors
+        try {
           const doctorsRes = await axios.get(`${API_BASE_URL}/doctor`, {
             headers: { Authorization: `Bearer ${token}` },
-          });
-          // Filter doctors to show only 'active' ones
+          });
           const activeDoctors = doctorsRes.data.filter(
             (doctor) => doctor.status === "active"
           );
-          setDoctors(activeDoctors);
-
-          // Fetch patients
+          setDoctors(activeDoctors);
           const patientsRes = await axios.get(`${API_BASE_URL}/patients`, {
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -781,9 +757,7 @@ const AppointmentModal = ({
     } finally {
       setIsLoading(false);
     }
-  };
-
-  // Helper function to get doctor ID from local storage
+  };
   function getDoctorId() {
     try {
       const userData = JSON.parse(localStorage.getItem("user"));
@@ -805,7 +779,7 @@ const AppointmentModal = ({
       title={isEditMode ? "Edit Appointment" : "New Appointment"}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Patient Selection */}
+        {}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Patient
@@ -830,7 +804,7 @@ const AppointmentModal = ({
           )}
         </div>
 
-        {/* Doctor Selection (conditionally rendered for admin view) */}
+        {}
         {!isDoctorView && (
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -859,7 +833,7 @@ const AppointmentModal = ({
           </div>
         )}
 
-        {/* Date and Time Selection */}
+        {}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -898,7 +872,7 @@ const AppointmentModal = ({
           </div>
         </div>
 
-        {/* Reason */}
+        {}
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Reason
@@ -913,7 +887,7 @@ const AppointmentModal = ({
           />
         </div>
 
-        {/* Status (only visible in edit mode) */}
+        {}
         {isEditMode && (
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -935,7 +909,7 @@ const AppointmentModal = ({
           </div>
         )}
 
-        {/* Action Buttons */}
+        {}
         <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
           <Button
             type="button"
@@ -978,9 +952,7 @@ const AppointmentsPage = ({ isDoctorView = false }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const token = localStorage.getItem("authToken");
-
-  // Helper function to get doctor ID from local storage
+  const token = localStorage.getItem("authToken");
   const getDoctorId = useCallback(() => {
   try {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -1000,16 +972,12 @@ const AppointmentsPage = ({ isDoctorView = false }) => {
 const fetchAppointments = useCallback(async () => {
   try {
     setIsLoading(true);
-    setError(null);
-
-    // Get doctor ID first
+    setError(null);
     const doctorId = getDoctorId();
     if (!doctorId) {
       setIsLoading(false);
       return;
-    }
-
-    // Construct the endpoint with the actual doctor ID
+    }
     const endpoint = `${API_BASE_URL}/appdoctors/doctor/${doctorId}`;
 
     const response = await axios.get(endpoint, {
@@ -1032,8 +1000,7 @@ useEffect(() => {
 }, [fetchAppointments]);
 
   const handleStatusChange = async (id, status) => {
-    try {
-      // Optimistic update
+    try {
       setAppointments((prev) =>
         prev.map((app) => (app._id === id ? { ...app, status } : app))
       );
@@ -1106,8 +1073,7 @@ useEffect(() => {
           setIsModalOpen(true);
         }}
         onDelete={handleDeleteAppointment}
-        onView={(appointment) => {
-          // A simple view example: You might open another modal or navigate to a detail page
+        onView={(appointment) => {
           toast.info(
             `Viewing appointment for ${appointment.patient?.name} with Dr. ${appointment.doctor?.name}`
           );

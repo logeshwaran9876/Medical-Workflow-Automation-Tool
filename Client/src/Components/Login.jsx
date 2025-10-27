@@ -51,9 +51,7 @@ const Input = ({
       />
     </div>
   </div>
-);
-
-// Button Component
+);
 const Button = ({
   children,
   onClick,
@@ -105,9 +103,7 @@ const Button = ({
       {children}
     </motion.button>
   );
-};
-
-// --- Main Login Page Component ---
+};
 
 const API_BASE_URL = "http://localhost:5000/api"; // Your backend API base URL
 
@@ -126,17 +122,12 @@ const LoginPage = () => {
       return;
     }
 
-    try {
-      // Replace with your actual login endpoint and payload
+    try {
       const response = await axios.post(`${API_BASE_URL}/auth/login`, {
         email,
         password,
-      });
-
-      // Assuming your backend returns a token or user data on successful login
-      const { token, user,redirectUrl} = response.data;
-
-      // Store token (e.g., in localStorage or a state management solution)
+      });
+      const { token, user,redirectUrl} = response.data;
       localStorage.setItem("authToken", token);
       localStorage.setItem("user", JSON.stringify(user));
      
@@ -177,7 +168,7 @@ const LoginPage = () => {
         className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md backdrop-filter backdrop-blur-lg bg-opacity-90 border border-gray-100"
       >
         <div className="text-center mb-8">
-          {/* Placeholder for a logo or icon */}
+          {}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -220,7 +211,7 @@ const LoginPage = () => {
           />
 
           <div className="flex justify-between items-center text-sm">
-            {/* You can add a "Remember Me" checkbox here if needed */}
+            {}
             <a href="#" className="text-teal-600 hover:underline">
               Forgot password?
             </a>
